@@ -6,7 +6,7 @@ class HeightScreen extends StatefulWidget {
 }
 
 class _HeightScreenState extends State<HeightScreen> {
-  double selectedHeight = 165; // Default height
+  double selectedHeight = 165; // Default height in cm
   bool isCm = true; // Toggle between cm and ft
 
   @override
@@ -28,6 +28,8 @@ class _HeightScreenState extends State<HeightScreen> {
                   onTap: () {
                     setState(() {
                       isCm = true; // Set to cm
+                      // Convert height to cm if switching from ft
+                      selectedHeight = (selectedHeight * 30.48).clamp(150, 200);
                     });
                   },
                   child: Container(
@@ -47,6 +49,8 @@ class _HeightScreenState extends State<HeightScreen> {
                   onTap: () {
                     setState(() {
                       isCm = false; // Set to ft
+                      // Convert height to ft if switching from cm
+                      selectedHeight = (selectedHeight / 30.48).clamp(4.0, 7.0);
                     });
                   },
                   child: Container(
@@ -67,10 +71,12 @@ class _HeightScreenState extends State<HeightScreen> {
             // Height Slider
             Slider(
               value: selectedHeight,
-              min: isCm ? 150 : 4.9, // Adjust min for ft
-              max: isCm ? 200 : 6.5, // Adjust max for ft
-              divisions: isCm ? 50 : 20, // Adjust divisions for ft
-              label: isCm ? "${selectedHeight.toInt()} cm" : "${(selectedHeight * 12).toInt()} ft", // Label based on unit
+              min: isCm ? 150 : 4.0, // Adjust min for ft
+              max: isCm ? 200 : 7.0, // Adjust max for ft
+              divisions: isCm ? 50 : 30, // Adjust divisions for ft
+              label: isCm
+                  ? "${selectedHeight.toInt()} cm"
+                  : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
               onChanged: (value) {
                 setState(() {
                   selectedHeight = value; // Update height
@@ -80,7 +86,9 @@ class _HeightScreenState extends State<HeightScreen> {
             SizedBox(height: 20),
             // Display Selected Height
             Text(
-              "${selectedHeight.toInt()} ${isCm ? 'cm' : 'ft'}",
+              isCm
+                  ? "${selectedHeight.toInt()} cm"
+                  : "${selectedHeight.toStringAsFixed(2)} ft",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 40),
@@ -88,6 +96,7 @@ class _HeightScreenState extends State<HeightScreen> {
             ElevatedButton(
               onPressed: () {
                 // Handle next action
+                print("Selected Height: ${isCm ? '${selectedHeight.toInt()} cm' : '${selectedHeight.toStringAsFixed(2)} ft'}");
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
