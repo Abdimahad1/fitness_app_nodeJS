@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'motivate.dart'; // Import the MotivateScreen
 
 class BodyTypeScreen extends StatefulWidget {
   @override
@@ -230,8 +231,12 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
               child: ElevatedButton(
                 onPressed: selectedGoal != null
                     ? () {
-                  // Handle Next action
-                }
+                        // Navigate to the MotivateScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MotivateScreen()),
+                        );
+                      }
                     : null, // Disable button if no goal is selected
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selectedGoal != null ? Colors.black : Colors.grey, // Change color based on selection
