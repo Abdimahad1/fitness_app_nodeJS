@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'height.dart'; // Import the HeightScreen
 
 class BirthScreen extends StatefulWidget {
   @override
@@ -109,8 +110,11 @@ class _BirthScreenState extends State<BirthScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle next action
-                  print("Selected Year: $selectedYear");
+                  // Navigate to the HeightScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HeightScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
