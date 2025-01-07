@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'weight.dart'; // Import the WeightScreen
 
 class HeightScreen extends StatefulWidget {
   @override
@@ -74,9 +75,7 @@ class _HeightScreenState extends State<HeightScreen> {
               min: isCm ? 150 : 4.0, // Adjust min for ft
               max: isCm ? 200 : 7.0, // Adjust max for ft
               divisions: isCm ? 50 : 30, // Adjust divisions for ft
-              label: isCm
-                  ? "${selectedHeight.toInt()} cm"
-                  : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
+              label: isCm ? "${selectedHeight.toInt()} cm" : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
               onChanged: (value) {
                 setState(() {
                   selectedHeight = value; // Update height
@@ -86,17 +85,18 @@ class _HeightScreenState extends State<HeightScreen> {
             SizedBox(height: 20),
             // Display Selected Height
             Text(
-              isCm
-                  ? "${selectedHeight.toInt()} cm"
-                  : "${selectedHeight.toStringAsFixed(2)} ft",
+              isCm ? "${selectedHeight.toInt()} cm" : "${selectedHeight.toStringAsFixed(2)} ft",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 40),
             // Next Button
             ElevatedButton(
               onPressed: () {
-                // Handle next action
-                print("Selected Height: ${isCm ? '${selectedHeight.toInt()} cm' : '${selectedHeight.toStringAsFixed(2)} ft'}");
+                // Navigate to the WeightScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WeightScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
