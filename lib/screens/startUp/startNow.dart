@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../mainScreens/home.dart'; // Correct import for HomeScreen
 
 class StartNowScreen extends StatelessWidget {
   @override
@@ -100,7 +101,11 @@ class StartNowScreen extends StatelessWidget {
             // Start Now Button
             ElevatedButton(
               onPressed: () {
-                // Handle start action
+                // Navigate to the HomeScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

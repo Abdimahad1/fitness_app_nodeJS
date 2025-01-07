@@ -27,3 +27,4 @@ flutter:
   # Asset Configuration
   assets:
     - lib/assets/images/coach.png
+    - lib/assets/images/fullbody.png
