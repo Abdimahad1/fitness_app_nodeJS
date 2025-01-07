@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'startNow.dart'; // Import the StartNowScreen
 
 class WeightScreen extends StatefulWidget {
   @override
@@ -8,9 +9,32 @@ class WeightScreen extends StatefulWidget {
 class _WeightScreenState extends State<WeightScreen> {
   double selectedWeight = 74.8; // Default weight in kg
   bool isKg = true; // Toggle between kg and lbs
+  double height = 1.75; // User's height in meters (example default)
+
+  // Method to calculate BMI
+  double calculateBMI() {
+    double weightInKg = isKg ? selectedWeight : selectedWeight / 2.20462;
+    return weightInKg / (height * height);
+  }
+
+  // Method to determine BMI category
+  String getBMICategory(double bmi) {
+    if (bmi < 18.5) {
+      return "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal";
+    } else if (bmi >= 25.0 && bmi < 29.9) {
+      return "Overweight";
+    } else {
+      return "Obese";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    double bmi = calculateBMI();
+    String category = getBMICategory(bmi);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("What's your current weight?"),
@@ -92,12 +116,64 @@ class _WeightScreenState extends State<WeightScreen> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 40),
+            // BMI Display
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Your BMI (${category})",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Icon(
+                    Icons.info_outline,
+                    size: 16,
+                    color: Colors.black54,
+                  ),
+                  Spacer(),
+                  Text(
+                    "${bmi.toStringAsFixed(1)}",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              category == "Normal"
+                  ? "You're in great shape! Keep it up!"
+                  : category == "Overweight"
+                      ? "You only need a bit more sweat exercises to see a fitter you!"
+                      : category == "Underweight"
+                          ? "Consider adding more nutritious food to your diet."
+                          : "Focus on a balanced diet and consistent exercise!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+            SizedBox(height: 40),
             // Next Button
             ElevatedButton(
               onPressed: () {
-                // Handle next action
-                print(
-                    "Selected Weight: ${isKg ? '${selectedWeight.toStringAsFixed(1)} kg' : '${selectedWeight.toStringAsFixed(1)} lbs'}");
+                // Navigate to the StartNowScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StartNowScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
