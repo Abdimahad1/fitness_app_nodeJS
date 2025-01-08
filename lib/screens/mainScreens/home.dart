@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'activity.dart'; // Import the ActivityScreen
+import 'activity.dart';
+import 'workouts.dart';
+import 'profile.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0; // Current selected index in the bottom nav bar
-  String selectedCategory = "All"; // Default selected category
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +18,27 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          "Flexio",
-          style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Welcome back 👋",
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+                Text("Jordan Eagle",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+              ],
+            ),
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('lib/assets/images/user.png'),
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.blue),
-            onPressed: () {
-              // Handle notifications
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -37,195 +47,216 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Welcome Message
-              Text(
-                "Start Strong and\nSet Your Fitness Goals",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 20),
-              // 7x4 Challenge Rectangle
+              // Progress Section
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Text Section
                     Expanded(
-                      flex: 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "FULL BODY 7X4 CHALLENGE",
+                            "Progress",
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
-                          Text(
-                            "Start your body-toning journey to target all muscle groups and build your dream body in 4 weeks!",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white70,
-                            ),
+                          Row(
+                            children: [
+                              Icon(Icons.timer, size: 14, color: Colors.grey),
+                              SizedBox(width: 5),
+                              Text("3 hours", style: TextStyle(color: Colors.grey)),
+                              SizedBox(width: 10),
+                              Icon(Icons.star, size: 14, color: Colors.grey),
+                              SizedBox(width: 5),
+                              Text("Beginner", style: TextStyle(color: Colors.grey)),
+                            ],
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
-                              // Handle start action
+                              // Continue workout logic
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
+                              backgroundColor: Colors.black,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                              elevation: 5,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
                             ),
-                            child: Text(
-                              "START NOW",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text("Continue the workout",
+                                    style: TextStyle(color: Colors.white)),
+                                Icon(Icons.arrow_forward,
+                                    color: Colors.white, size: 18),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
                     SizedBox(width: 10),
-                    // Image Section
-                    Expanded(
-                      flex: 1,
-                      child: Image.asset(
-                        'lib/assets/images/fullbody.png', // Replace with your image path
-                        fit: BoxFit.cover,
-                        height: 168, // Adjusted for better layout
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "0%",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 20),
-              // Progress Section
-              Text(
-                "Progress",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+              // Recommendations Section
+              Text("Recommendations",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  ProgressCard(title: "Chest Workout", progress: "0/0", timeRemaining: "0 min remaining"),
-                  ProgressCard(title: "Legs Workout", progress: "0/0", timeRemaining: "0 min remaining"),
-                ],
-              ),
-              SizedBox(height: 20),
-              // Categories Section
-              Text(
-                "Categories",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 10),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CategoryButton(
-                      title: "All",
-                      isSelected: selectedCategory == "All",
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = "All";
-                        });
-                      },
-                    ),
-                    CategoryButton(
-                      title: "Cardio",
-                      isSelected: selectedCategory == "Cardio",
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = "Cardio";
-                        });
-                      },
-                    ),
-                    CategoryButton(
-                      title: "Upper Body",
-                      isSelected: selectedCategory == "Upper Body",
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = "Upper Body";
-                        });
-                      },
-                    ),
-                    CategoryButton(
-                      title: "Lower Body",
-                      isSelected: selectedCategory == "Lower Body",
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = "Lower Body";
-                        });
-                      },
-                    ),
-                    CategoryButton(
-                      title: "More Workouts",
-                      isSelected: selectedCategory == "More Workouts",
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = "More Workouts";
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              // Category-Specific Rectangles
-              ListView(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: selectedCategory == "Cardio"
-                    ? [
-                  ExerciseCard(title: "Cardio Warm-Up", subtitle: "15 Exercises • 20 Min"),
-                  ExerciseCard(title: "HIIT Cardio", subtitle: "12 Exercises • 25 Min"),
-                ]
-                    : selectedCategory == "Upper Body"
-                    ? [
-                  ExerciseCard(title: "Push-Ups", subtitle: "10 Exercises • 15 Min"),
-                  ExerciseCard(title: "Pull-Ups", subtitle: "8 Exercises • 10 Min"),
-                ]
-                    : selectedCategory == "Lower Body"
-                    ? [
-                  ExerciseCard(title: "Squats", subtitle: "12 Exercises • 20 Min"),
-                  ExerciseCard(title: "Lunges", subtitle: "10 Exercises • 15 Min"),
-                ]
-                    : selectedCategory == "More Workouts"
-                    ? [
-                  ExerciseCard(title: "Yoga", subtitle: "8 Exercises • 30 Min"),
-                  ExerciseCard(title: "Stretching", subtitle: "6 Exercises • 15 Min"),
-                ]
-                    : [
-                  ExerciseCard(title: "Full Body Warm-Up", subtitle: "20 Exercises • 22 Min"),
-                  ExerciseCard(title: "Full Body Challenge", subtitle: "25 Exercises • 30 Min"),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Pull Up",
+                    duration: "15 minutes",
+                    level: "Beginner",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Pull Up",
+                            duration: "15 minutes",
+                            level: "Beginner",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Sit Up",
+                    duration: "30 minutes",
+                    level: "Intermediate",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Sit Up",
+                            duration: "30 minutes",
+                            level: "Intermediate",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Biceps Curl",
+                    duration: "2 hours",
+                    level: "Advanced",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Biceps Curl",
+                            duration: "2 hours",
+                            level: "Advanced",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Jumping Jacks",
+                    duration: "10 minutes",
+                    level: "Beginner",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Jumping Jacks",
+                            duration: "10 minutes",
+                            level: "Beginner",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Leg Press",
+                    duration: "45 minutes",
+                    level: "Intermediate",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Leg Press",
+                            duration: "45 minutes",
+                            level: "Intermediate",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Shoulder Press",
+                    duration: "1 hour",
+                    level: "Advanced",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Shoulder Press",
+                            duration: "1 hour",
+                            level: "Advanced",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  RecommendationCard(
+                    image: 'lib/assets/images/coach.png',
+                    title: "Plank",
+                    duration: "5 minutes",
+                    level: "Beginner",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutsScreen(
+                            title: "Plank",
+                            duration: "5 minutes",
+                            level: "Beginner",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],
@@ -234,145 +265,97 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            if (index == 1) {
-              // Navigate to ActivityScreen when the activity icon is tapped
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ActivityScreen()),
-              );
-            }
-            // Add navigation logic here for other screens
-          });
-        },
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Activity',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Activity'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Calendar'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update the current index
+            if (index == 1) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ActivityScreen()));
+            } else if (index == 2) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => WorkoutsScreen(title: '', duration: '', level: '',)));
+            } else if (index == 3) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+            }
+          });
+        },
       ),
     );
   }
 }
 
-// Progress Card Widget
-class ProgressCard extends StatelessWidget {
+class RecommendationCard extends StatelessWidget {
+  final String image;
   final String title;
-  final String progress;
-  final String timeRemaining;
+  final String duration;
+  final String level;
+  final VoidCallback onTap;
 
-  ProgressCard({required this.title, required this.progress, required this.timeRemaining});
+  RecommendationCard({
+    required this.image,
+    required this.title,
+    required this.duration,
+    required this.level,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 5),
-          Text(progress, style: TextStyle(fontSize: 16)),
-          SizedBox(height: 5),
-          Text(timeRemaining, style: TextStyle(fontSize: 14, color: Colors.black54)),
-        ],
-      ),
-    );
-  }
-}
-
-// Category Button Widget
-class CategoryButton extends StatelessWidget {
-  final String title;
-  final bool isSelected;
-  final VoidCallback onPressed;
-
-  CategoryButton({required this.title, required this.isSelected, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isSelected ? Colors.blue : Colors.white,
-          side: BorderSide(color: Colors.blue, width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey.shade300),
         ),
-        child: Text(
-          title,
-          style: TextStyle(color: isSelected ? Colors.white : Colors.blue),
-        ),
-      ),
-    );
-  }
-}
-
-// Exercise Card Widget
-class ExerciseCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  ExerciseCard({required this.title, required this.subtitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.fitness_center, color: Colors.blue, size: 40), // Replace with an appropriate icon or image
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
-                ),
-              ],
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                image,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        ],
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Icon(Icons.timer, size: 14, color: Colors.grey),
+                      SizedBox(width: 5),
+                      Text(duration, style: TextStyle(color: Colors.grey)),
+                      SizedBox(width: 10),
+                      Icon(Icons.star, size: 14, color: Colors.grey),
+                      SizedBox(width: 5),
+                      Text(level, style: TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+          ],
+        ),
       ),
     );
   }
