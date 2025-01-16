@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'weight.dart'; // Import the WeightScreen
 
 class HeightScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _HeightScreenState extends State<HeightScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("What's your height?"),
+        backgroundColor: Colors.blue,
       ),
       body: Container(
         color: Colors.white, // Background color
@@ -75,7 +77,9 @@ class _HeightScreenState extends State<HeightScreen> {
               min: isCm ? 150 : 4.0, // Adjust min for ft
               max: isCm ? 200 : 7.0, // Adjust max for ft
               divisions: isCm ? 50 : 30, // Adjust divisions for ft
-              label: isCm ? "${selectedHeight.toInt()} cm" : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
+              label: isCm
+                  ? "${selectedHeight.toInt()} cm"
+                  : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
               onChanged: (value) {
                 setState(() {
                   selectedHeight = value; // Update height
@@ -85,25 +89,25 @@ class _HeightScreenState extends State<HeightScreen> {
             SizedBox(height: 20),
             // Display Selected Height
             Text(
-              isCm ? "${selectedHeight.toInt()} cm" : "${selectedHeight.toStringAsFixed(2)} ft",
+              isCm
+                  ? "${selectedHeight.toInt()} cm"
+                  : "${selectedHeight.toStringAsFixed(2)} ft",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 40),
             // Next Button
             ElevatedButton(
               onPressed: () {
-                // Navigate to the WeightScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WeightScreen()),
-                );
+                // Navigate to the WeightScreen using GetX
+                Get.to(() => WeightScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
+                padding:
+                    EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
                 elevation: 5, // Add shadow for depth
               ),
               child: Text(

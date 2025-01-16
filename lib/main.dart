@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'screens/startUp/hello.dart';
 
 void main() {
@@ -8,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp( // Use GetMaterialApp instead of MaterialApp
       debugShowCheckedModeBanner: false,
       title: 'Fitness App',
       theme: ThemeData(
