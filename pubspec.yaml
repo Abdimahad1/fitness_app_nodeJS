@@ -18,6 +18,9 @@ dependencies:
   fl_chart: ^0.40.0
   table_calendar: ^3.0.6
   get: ^4.6.5
+  animated_text_kit: ^4.2.0
+  animations: ^2.0.6
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -30,4 +33,4 @@ flutter:
   # Asset Configuration
   assets:
     - lib/assets/images/coach.png
-    - lib/assets/images/fullbody.png
+    - lib/assets/images/background.jpg

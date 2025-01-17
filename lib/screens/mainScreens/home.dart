@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../startUp/startNow.dart';
-import 'workout.dart'; // Import WorkoutScreen
+import 'workout.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -24,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
               // Back Arrow and Header
               GestureDetector(
                 onTap: () {
-                  Get.to(() => StartNowScreen());
+                  Get.to(() => const StartNowScreen());
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(Icons.arrow_back, size: 24, color: Colors.black),
                     SizedBox(width: 10),
@@ -41,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Welcome Header
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -61,31 +65,82 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              // Swipeable Progress Section
-              Container(
-                height: 150,
-                child: PageView(
-                  children: [
-                    _buildProgressCard("Daily Progress", "30%", Colors.blue),
-                    _buildProgressCard("Weekly Progress", "70%", Colors.green),
-                    _buildProgressCard("Monthly Progress", "50%", Colors.orange),
-                  ],
+              // Breath Progress Section
+              GestureDetector(
+                onTap: () {
+                  _showBreathPopup(context);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Daily Breath Test",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "Tap to test your breath-holding ability",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Icon(
+                        Icons.air,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Recommendations Header
-              Text(
-                "Recommended Workouts",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Recommended Workouts",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => WorkoutScreen());
+                    },
+                    child: const Text(
+                      "See More",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
+
+              const SizedBox(height: 10),
 
               // Recommendations Section
               Expanded(
@@ -97,6 +152,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       level: "Beginner",
                       color: Colors.blue,
                       image: 'lib/assets/images/coach.png',
+                      description: "A beginner-friendly workout to build upper body strength.",
+                      relatedWorkouts: [
+                        {"title": "Chin Ups", "duration": "10 min", "icon": Icons.fitness_center},
+                        {"title": "Wide-Grip Pull Ups", "duration": "15 min", "icon": Icons.sports},
+                      ],
                     ),
                     _buildRecommendationCard(
                       title: "Sit Up",
@@ -104,6 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       level: "Intermediate",
                       color: Colors.green,
                       image: 'lib/assets/images/coach.png',
+                      description: "An intermediate workout to strengthen your core.",
+                      relatedWorkouts: [
+                        {"title": "Crunches", "duration": "10 min", "icon": Icons.sports},
+                        {"title": "Leg Raises", "duration": "20 min", "icon": Icons.self_improvement},
+                      ],
                     ),
                     _buildRecommendationCard(
                       title: "Biceps Curl",
@@ -111,17 +176,52 @@ class _HomeScreenState extends State<HomeScreen> {
                       level: "Advanced",
                       color: Colors.orange,
                       image: 'lib/assets/images/coach.png',
+                      description: "Advanced bicep workout for strength and definition.",
+                      relatedWorkouts: [
+                        {"title": "Hammer Curls", "duration": "20 min", "icon": Icons.fitness_center},
+                        {"title": "Concentration Curls", "duration": "25 min", "icon": Icons.sports},
+                      ],
                     ),
                     _buildRecommendationCard(
                       title: "Leg Press",
                       duration: "60 min",
-                      level: "Advanced",
+                      level: "Intermediate",
                       color: Colors.purple,
                       image: 'lib/assets/images/coach.png',
+                      description: "An effective workout to strengthen your legs.",
+                      relatedWorkouts: [
+                        {"title": "Weighted Squats", "duration": "25 min", "icon": Icons.fitness_center},
+                        {"title": "Lunges", "duration": "20 min", "icon": Icons.sports},
+                      ],
+                    ),
+                    _buildRecommendationCard(
+                      title: "Plank",
+                      duration: "10 min",
+                      level: "Beginner",
+                      color: Colors.cyan,
+                      image: 'lib/assets/images/coach.png',
+                      description: "A simple core workout to build endurance.",
+                      relatedWorkouts: [
+                        {"title": "Side Plank", "duration": "5 min", "icon": Icons.sports_martial_arts},
+                        {"title": "Plank with Shoulder Taps", "duration": "10 min", "icon": Icons.self_improvement},
+                      ],
+                    ),
+                    _buildRecommendationCard(
+                      title: "Push Up",
+                      duration: "20 min",
+                      level: "Beginner",
+                      color: Colors.red,
+                      image: 'lib/assets/images/coach.png',
+                      description: "A great upper body workout for beginners.",
+                      relatedWorkouts: [
+                        {"title": "Diamond Push Ups", "duration": "10 min", "icon": Icons.fitness_center},
+                        {"title": "Wide Push Ups", "duration": "15 min", "icon": Icons.sports_gymnastics},
+                      ],
                     ),
                   ],
                 ),
               ),
+
             ],
           ),
         ),
@@ -129,8 +229,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Simplified Bottom Navigation Bar
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -164,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
               index: 1,
               isSelected: _currentIndex == 1,
               onTap: () {
-                Get.to(() => WorkoutScreen()); // Navigate to WorkoutScreen
+                Get.to(() => WorkoutScreen());
               },
             ),
             _buildNavItem(
@@ -184,123 +284,141 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Progress Card Widget
-  Widget _buildProgressCard(String title, String progress, Color color) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(right: 15),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
+  // Show Breath Popup Modal
+  void _showBreathPopup(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                progress,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                progress,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      builder: (context) {
+        return BreathTestWidget();
+      },
     );
   }
 
-  // Recommendation Card Widget
   Widget _buildRecommendationCard({
     required String title,
     required String duration,
     required String level,
     required Color color,
     required String image,
+    required String description,
+    required List<Map<String, dynamic>> relatedWorkouts,
   }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              image,
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        _showWorkoutModal(
+          title: title,
+          description: description,
+          relatedWorkouts: relatedWorkouts,
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                image,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: color,
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
                   ),
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Icon(Icons.timer, size: 14, color: color),
-                    SizedBox(width: 5),
-                    Text(duration, style: TextStyle(color: Colors.black54)),
-                    SizedBox(width: 10),
-                    Icon(Icons.star, size: 14, color: color),
-                    SizedBox(width: 5),
-                    Text(level, style: TextStyle(color: Colors.black54)),
-                  ],
-                ),
-              ],
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Icon(Icons.timer, size: 14, color: color),
+                      const SizedBox(width: 5),
+                      Text(duration, style: const TextStyle(color: Colors.black54)),
+                      const SizedBox(width: 10),
+                      Icon(Icons.star, size: 14, color: color),
+                      const SizedBox(width: 5),
+                      Text(level, style: const TextStyle(color: Colors.black54)),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // Enhanced Nav Item Widget
+  void _showWorkoutModal({
+    required String title,
+    required String description,
+    required List<Map<String, dynamic>> relatedWorkouts,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                description,
+                style: const TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Exercises",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              ...relatedWorkouts.map((workout) {
+                return ListTile(
+                  leading: Icon(workout['icon'], color: Colors.blue),
+                  title: Text(workout['title']),
+                  trailing: Text(workout['duration']),
+                );
+              }).toList(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildNavItem({
     required IconData icon,
     required String label,
@@ -310,13 +428,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return GestureDetector(
       onTap: () => onTap(),
-      child: Container(
-        width: 80, // Increase touchable width
+      child: SizedBox(
+        width: 80,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: isSelected
                   ? BoxDecoration(
                 color: Colors.purple.withOpacity(0.2),
@@ -329,7 +447,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: isSelected ? Colors.purple : Colors.grey,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               label,
               style: TextStyle(
@@ -342,5 +460,152 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+}
+
+class BreathTestWidget extends StatefulWidget {
+  @override
+  _BreathTestWidgetState createState() => _BreathTestWidgetState();
+}
+
+class _BreathTestWidgetState extends State<BreathTestWidget> {
+  int selectedDuration = 60;
+  int remainingTime = 60;
+  Timer? _timer;
+  bool isRunning = false;
+
+  void _startTimer() {
+    if (_timer != null) _timer!.cancel();
+    setState(() {
+      remainingTime = selectedDuration;
+      isRunning = true;
+    });
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--;
+        });
+      } else {
+        _stopTimer();
+      }
+    });
+  }
+
+  void _stopTimer() {
+    if (_timer != null) {
+      _timer!.cancel();
+      setState(() {
+        isRunning = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Hold Your Breath",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            "Select a duration and start holding your breath.",
+            style: TextStyle(fontSize: 16, color: Colors.black54),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildDurationButton(60, "1 Min"),
+              _buildDurationButton(120, "2 Min"),
+              _buildDurationButton(180, "3 Min"),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(
+            "$remainingTime seconds remaining",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+          const SizedBox(height: 20),
+          LinearProgressIndicator(
+            value: (selectedDuration - remainingTime) / selectedDuration,
+            minHeight: 8,
+            color: Colors.green,
+            backgroundColor: Colors.grey.shade300,
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(
+                  isRunning ? Icons.pause : Icons.play_arrow,
+                  color: Colors.green,
+                  size: 30,
+                ),
+                onPressed: () {
+                  if (isRunning) {
+                    _stopTimer();
+                  } else {
+                    _startTimer();
+                  }
+                },
+              ),
+              const SizedBox(width: 20),
+              IconButton(
+                icon: const Icon(
+                  Icons.restart_alt,
+                  color: Colors.orange,
+                  size: 30,
+                ),
+                onPressed: () {
+                  _stopTimer();
+                  setState(() {
+                    remainingTime = selectedDuration;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDurationButton(int duration, String label) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          selectedDuration = duration;
+          remainingTime = duration;
+        });
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: selectedDuration == duration ? Colors.blue : Colors.grey.shade300,
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: selectedDuration == duration ? Colors.white : Colors.black,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _stopTimer();
+    super.dispose();
   }
 }

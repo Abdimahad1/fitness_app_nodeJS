@@ -3,27 +3,29 @@ import 'package:fl_chart/fl_chart.dart';
 import 'base_screen.dart';
 
 class ActivityScreen extends StatelessWidget {
+  const ActivityScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
       currentIndex: 1,
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Added spacing at the top of the screen
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               // Statistics Section
-              Text(
+              const Text(
                 "Statistics",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20), // Added spacing below the heading
-              Container(
+              const SizedBox(height: 20), // Added spacing below the heading
+              SizedBox(
                 height: 200,
                 child: LineChart(
                   LineChartData(
@@ -36,13 +38,13 @@ class ActivityScreen extends StatelessWidget {
                     lineBarsData: [
                       LineChartBarData(
                         spots: [
-                          FlSpot(0, 20),
-                          FlSpot(1, 38),
-                          FlSpot(2, 30),
-                          FlSpot(3, 50),
-                          FlSpot(4, 80),
-                          FlSpot(5, 100),
-                          FlSpot(6, 120),
+                          const FlSpot(0, 20),
+                          const FlSpot(1, 38),
+                          const FlSpot(2, 30),
+                          const FlSpot(3, 50),
+                          const FlSpot(4, 80),
+                          const FlSpot(5, 100),
+                          const FlSpot(6, 120),
                         ],
                         isCurved: true,
                         colors: [Colors.purple],
@@ -53,15 +55,15 @@ class ActivityScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30), // Spacing between sections
+              const SizedBox(height: 30), // Spacing between sections
 
               // Overview Section
-              Text(
+              const Text(
                 "Overview",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20), // Added spacing below the heading
-              Wrap(
+              const SizedBox(height: 20), // Added spacing below the heading
+              const Wrap(
                 spacing: 10,
                 runSpacing: 10,
                 children: [
@@ -118,7 +120,7 @@ class OverviewCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
-  OverviewCard({
+  const OverviewCard({super.key, 
     required this.title,
     required this.value,
     required this.unit,
@@ -130,7 +132,7 @@ class OverviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.42, // Each card takes 42% of the screen width
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -142,25 +144,25 @@ class OverviewCard extends StatelessWidget {
           Row(
             children: [
               Icon(icon, color: iconColor, size: 30),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             value,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             unit,
-            style: TextStyle(fontSize: 14, color: Colors.grey),
+            style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
         ],
       ),

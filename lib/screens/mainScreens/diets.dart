@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DietsScreen extends StatelessWidget {
+  const DietsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,16 +12,16 @@ class DietsScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Get.back(); // Use GetX for navigation
           },
         ),
-        title: Text(
+        title: const Text(
           "Meal Plan",
           style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           // Remove notification logic related to the controller
         ],
       ),
@@ -30,7 +32,7 @@ class DietsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Day Selector
-              Container(
+              SizedBox(
                 height: 50,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -41,8 +43,8 @@ class DietsScreen extends StatelessWidget {
                         // Handle day selection logic here
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -53,7 +55,7 @@ class DietsScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Day $index", // Replace with actual day names
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -65,7 +67,7 @@ class DietsScreen extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Meal Type Selector
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -93,17 +95,17 @@ class DietsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Meals List
-              Text(
+              const Text(
                 "0 meals",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ListView.builder(
                 itemCount: 0, // Assuming 0 meals initially
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return MealCard(
                     image: "",
@@ -133,7 +135,7 @@ class MealTypeButton extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  MealTypeButton({
+  const MealTypeButton({super.key, 
     required this.title,
     required this.isSelected,
     required this.onTap,
@@ -144,7 +146,7 @@ class MealTypeButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected ? Colors.teal : Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -171,7 +173,7 @@ class MealCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onAdd;
 
-  MealCard({
+  const MealCard({super.key, 
     required this.image,
     required this.title,
     required this.calories,
@@ -186,8 +188,8 @@ class MealCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 15),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isSelected ? Colors.teal.shade100 : Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -195,7 +197,7 @@ class MealCard extends StatelessWidget {
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
               blurRadius: 10,
-              offset: Offset(0, 5),
+              offset: const Offset(0, 5),
             ),
           ],
         ),
@@ -210,25 +212,25 @@ class MealCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      Icon(Icons.local_fire_department, color: Colors.orange, size: 16),
-                      SizedBox(width: 5),
-                      Text(calories, style: TextStyle(color: Colors.grey)),
-                      SizedBox(width: 10),
-                      Icon(Icons.timer, color: Colors.blue, size: 16),
-                      SizedBox(width: 5),
-                      Text(duration, style: TextStyle(color: Colors.grey)),
+                      const Icon(Icons.local_fire_department, color: Colors.orange, size: 16),
+                      const SizedBox(width: 5),
+                      Text(calories, style: const TextStyle(color: Colors.grey)),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.timer, color: Colors.blue, size: 16),
+                      const SizedBox(width: 5),
+                      Text(duration, style: const TextStyle(color: Colors.grey)),
                     ],
                   ),
                 ],
@@ -238,12 +240,12 @@ class MealCard extends StatelessWidget {
               GestureDetector(
                 onTap: onAdd,
                 child: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(Icons.add, color: Colors.white),
+                  child: const Icon(Icons.add, color: Colors.white),
                 ),
               ),
           ],

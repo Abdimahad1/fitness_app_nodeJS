@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'weight.dart'; // Import the WeightScreen
 
 class HeightScreen extends StatefulWidget {
+  const HeightScreen({super.key});
+
   @override
   _HeightScreenState createState() => _HeightScreenState();
 }
@@ -15,11 +17,35 @@ class _HeightScreenState extends State<HeightScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("What's your height?"),
-        backgroundColor: Colors.blue,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.blue,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
+        title: const Text(
+          "What's your height?",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 5,
+        centerTitle: true,
       ),
       body: Container(
-        color: Colors.white, // Background color
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blueGrey, Colors.black],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -35,19 +61,28 @@ class _HeightScreenState extends State<HeightScreen> {
                       selectedHeight = (selectedHeight * 30.48).clamp(150, 200);
                     });
                   },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       color: isCm ? Colors.blue : Colors.transparent,
                       borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 2,
+                      ),
                     ),
                     child: Text(
                       "cm",
-                      style: TextStyle(color: isCm ? Colors.white : Colors.black),
+                      style: TextStyle(
+                        color: isCm ? Colors.white : Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -56,61 +91,88 @@ class _HeightScreenState extends State<HeightScreen> {
                       selectedHeight = (selectedHeight / 30.48).clamp(4.0, 7.0);
                     });
                   },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       color: !isCm ? Colors.blue : Colors.transparent,
                       borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 2,
+                      ),
                     ),
                     child: Text(
                       "ft",
-                      style: TextStyle(color: !isCm ? Colors.white : Colors.black),
+                      style: TextStyle(
+                        color: !isCm ? Colors.white : Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 30),
+
             // Height Slider
-            Slider(
-              value: selectedHeight,
-              min: isCm ? 150 : 4.0, // Adjust min for ft
-              max: isCm ? 200 : 7.0, // Adjust max for ft
-              divisions: isCm ? 50 : 30, // Adjust divisions for ft
-              label: isCm
-                  ? "${selectedHeight.toInt()} cm"
-                  : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
-              onChanged: (value) {
-                setState(() {
-                  selectedHeight = value; // Update height
-                });
-              },
+            SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                activeTrackColor: Colors.blue,
+                inactiveTrackColor: Colors.white70,
+                thumbColor: Colors.blue,
+                overlayColor: Colors.blue.withOpacity(0.2),
+                valueIndicatorTextStyle: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              child: Slider(
+                value: selectedHeight,
+                min: isCm ? 150 : 4.0, // Adjust min for ft
+                max: isCm ? 200 : 7.0, // Adjust max for ft
+                divisions: isCm ? 50 : 30, // Adjust divisions for ft
+                label: isCm
+                    ? "${selectedHeight.toInt()} cm"
+                    : "${selectedHeight.toStringAsFixed(2)} ft", // Label based on unit
+                onChanged: (value) {
+                  setState(() {
+                    selectedHeight = value; // Update height
+                  });
+                },
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+
             // Display Selected Height
             Text(
               isCm
                   ? "${selectedHeight.toInt()} cm"
                   : "${selectedHeight.toStringAsFixed(2)} ft",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
+
             // Next Button
             ElevatedButton(
               onPressed: () {
                 // Navigate to the WeightScreen using GetX
-                Get.to(() => WeightScreen());
+                Get.to(() => const WeightScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
-                elevation: 5, // Add shadow for depth
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 60, vertical: 20),
+                elevation: 5,
               ),
-              child: Text(
+              child: const Text(
                 "NEXT",
                 style: TextStyle(
                   color: Colors.white,

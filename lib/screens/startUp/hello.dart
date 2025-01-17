@@ -1,76 +1,137 @@
 import 'package:flutter/material.dart';
 import 'genderSelection.dart'; // Updated import to reference the correct file
+import 'package:animated_text_kit/animated_text_kit.dart'; // Import for animated text
 
 class HelloScreen extends StatelessWidget {
+  const HelloScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Profile Image
-            CircleAvatar(
-              radius: 60,
-              backgroundImage: AssetImage('lib/assets/images/coach.png'), // Path to your image
+      body: Stack(
+        children: [
+          // Background Image with Overlay
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('lib/assets/images/background.jpg'), // Path to your background image
+                fit: BoxFit.cover,
+              ),
             ),
-            SizedBox(height: 30),
+            child: Container(
+              color: Colors.black.withOpacity(0.6), // Overlay to reduce brightness
+            ),
+          ),
+          // Content
+          SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Coach Image in a Circle with Border
+                  Container(
+                    width: 140,
+                    height: 140,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.8),
+                        width: 5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: const CircleAvatar(
+                      radius: 65,
+                      backgroundImage:
+                      AssetImage('lib/assets/images/coach.png'), // Path to your image
+                    ),
+                  ),
+                  const SizedBox(height: 30),
 
-            // Title Text
-            Text(
-              'Hello!',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(height: 20),
+                  // Animated Title Text
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      TyperAnimatedText(
+                        'Hello!',
+                        textStyle: const TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        speed: const Duration(milliseconds: 100),
+                      ),
+                    ],
+                    totalRepeatCount: 1,
+                  ),
+                  const SizedBox(height: 20),
 
-            // Subtitle Text
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Text(
-                "I'm your personal coach.\nHere are some questions to tailor your personalized plan.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black54,
-                  height: 1.5,
-                ),
-              ),
-            ),
-            SizedBox(height: 50),
+                  // Subtitle Text
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Text(
+                      "I'm your personal coach.\nHere are some questions to tailor your personalized plan.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white70,
+                        height: 1.5,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black87,
+                            blurRadius: 5,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 50),
 
-            // Button
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the GenderScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GenderScreen()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Button background color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              ),
-              child: Text(
-                "I'm Ready",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                  // Button with animation
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GenderScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white.withOpacity(0.9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
+                      elevation: 10,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text(
+                          "I'm Ready",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(Icons.arrow_forward, color: Colors.black),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

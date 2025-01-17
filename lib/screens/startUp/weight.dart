@@ -2,103 +2,208 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'startNow.dart'; // Import the StartNowScreen
 
-class WeightScreen extends StatelessWidget {
+class WeightScreen extends StatefulWidget {
+  const WeightScreen({super.key});
+
+  @override
+  _WeightScreenState createState() => _WeightScreenState();
+}
+
+class _WeightScreenState extends State<WeightScreen> {
+  double selectedWeight = 60.0; // Default weight in kg
+  double heightInCm = 165; // Default height in cm
+  bool isKg = true; // Toggle between kg and lbs
+
+  String getWeightCategory(double weight, double height) {
+    double weightInKg = isKg ? weight : weight / 2.20462; // Convert to kg if in lbs
+    double heightInMeters = height / 100; // Convert height to meters
+    double bmi = weightInKg / (heightInMeters * heightInMeters);
+
+    if (bmi < 18.5) {
+      return "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+      return "Overweight";
+    } else {
+      return "Obese";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("What's your current weight?"),
-      ),
-      body: SingleChildScrollView( // Wrap the body with SingleChildScrollView
-        child: Container(
-          color: Colors.white, // Background color
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16), // Add padding
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Weight Unit Toggle
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Set to kg
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: true ? Colors.blue : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        "kg",
-                        style: TextStyle(color: true ? Colors.white : Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      // Set to lbs
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: !true ? Colors.blue : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        "lbs",
-                        style: TextStyle(color: !true ? Colors.white : Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              // Weight Slider
-              Slider(
-                value: 60.0, // Default value for demonstration
-                min: 40, // Minimum weight in kg
-                max: 150, // Maximum weight in kg
-                divisions: 110, // Number of steps
-                label: "${60.0.toStringAsFixed(1)} kg", // Label based on unit
-                onChanged: (value) {
-                  // Update weight logic
-                },
-              ),
-              SizedBox(height: 20),
-              // Display Selected Weight
-              Text(
-                "${60.0.toStringAsFixed(1)} kg",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 40),
-              // Next Button
-              ElevatedButton(
-                onPressed: () {
-                  // Navigate to the StartNowScreen using GetX
-                  Get.to(() => StartNowScreen());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                  elevation: 5,
-                ),
-                child: Text(
-                  "NEXT",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.blue,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
+        ),
+        title: const Text(
+          "What's your current weight?",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 5,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blueGrey, Colors.black],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Weight Unit Toggle
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isKg = true;
+                      selectedWeight = (selectedWeight / 2.20462)
+                          .clamp(40.0, 150.0); // Convert to kg if switching
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: isKg ? Colors.blue : Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.blue, width: 2),
+                    ),
+                    child: Text(
+                      "kg",
+                      style: TextStyle(
+                        color: isKg ? Colors.white : Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isKg = false;
+                      selectedWeight = (selectedWeight * 2.20462)
+                          .clamp(88.0, 330.0); // Convert to lbs if switching
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: !isKg ? Colors.blue : Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.blue, width: 2),
+                    ),
+                    child: Text(
+                      "lbs",
+                      style: TextStyle(
+                        color: !isKg ? Colors.white : Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+
+            // Weight Slider
+            SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                activeTrackColor: Colors.blue,
+                inactiveTrackColor: Colors.white70,
+                thumbColor: Colors.blue,
+                overlayColor: Colors.blue.withOpacity(0.2),
+                valueIndicatorTextStyle: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              child: Slider(
+                value: selectedWeight,
+                min: isKg ? 40 : 88, // Adjust min for lbs
+                max: isKg ? 150 : 330, // Adjust max for lbs
+                divisions: isKg ? 110 : 242, // Adjust divisions for lbs
+                label: isKg
+                    ? "${selectedWeight.toInt()} kg"
+                    : "${selectedWeight.toInt()} lbs", // Label based on unit
+                onChanged: (value) {
+                  setState(() {
+                    selectedWeight = value; // Update weight
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Display Selected Weight
+            Text(
+              isKg
+                  ? "${selectedWeight.toInt()} kg"
+                  : "${selectedWeight.toInt()} lbs",
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Display Weight Category
+            Text(
+              getWeightCategory(selectedWeight, heightInCm),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white70,
+              ),
+            ),
+            const SizedBox(height: 40),
+
+            // Next Button
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the StartNowScreen using GetX
+                Get.to(() => const StartNowScreen());
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 60, vertical: 20),
+                elevation: 5,
+              ),
+              child: const Text(
+                "NEXT",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

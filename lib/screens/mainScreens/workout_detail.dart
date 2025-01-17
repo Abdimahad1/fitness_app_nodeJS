@@ -7,7 +7,7 @@ class WorkoutDetailScreen extends StatefulWidget {
   final String description;
   final List<Map<String, dynamic>> relatedWorkouts;
 
-  WorkoutDetailScreen({
+  const WorkoutDetailScreen({super.key, 
     required this.title,
     required this.description,
     required this.relatedWorkouts,
@@ -27,7 +27,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   void _startTimer() {
     _isRunning = true;
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingTime > 0) {
         setState(() {
           _remainingTime--;
@@ -82,7 +82,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 onTap: () {
                   Get.back(); // Return to WorkoutScreen
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(Icons.arrow_back, size: 24, color: Colors.black),
                     SizedBox(width: 10),
@@ -97,29 +97,29 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Workout Title and Description
               Text(
                 widget.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 widget.description,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Related Workouts Header
-              Text(
+              const Text(
                 "Exercises to Master",
                 style: TextStyle(
                   fontSize: 22,
@@ -127,7 +127,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // Related Workouts List
               Expanded(
@@ -148,8 +148,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            padding: EdgeInsets.all(15),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(15),
@@ -164,10 +164,10 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                       color: Colors.blue,
                                       size: 30,
                                     ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     Text(
                                       workout['title'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -177,7 +177,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                 ),
                                 Text(
                                   "${workout['duration']} min",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.black54,
                                   ),
@@ -191,10 +191,10 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               // Timer and Controls with Green Border
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(15),
@@ -211,14 +211,14 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                       children: [
                                         Text(
                                           "${((_totalTime - _remainingTime) / 60).floor()}:${((_totalTime - _remainingTime) % 60).toString().padLeft(2, '0')}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
                                           "${(_totalTime / 60).floor()}:${(_totalTime % 60).toString().padLeft(2, '0')}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -258,7 +258,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                         ),
                                         IconButton(
                                           onPressed: _resetTimer,
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.restart_alt,
                                             color: Colors.orange,
                                           ),

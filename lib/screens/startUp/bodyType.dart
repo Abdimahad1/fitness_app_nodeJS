@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'motivate.dart'; // Import the MotivateScreen
 
 class BodyTypeScreen extends StatefulWidget {
+  const BodyTypeScreen({super.key});
+
   @override
   _BodyTypeScreenState createState() => _BodyTypeScreenState();
 }
@@ -34,7 +36,18 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('What\'s your main goal?'),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.blue,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
+        title: const Text('What\'s your main goal?'),
+        backgroundColor: Colors.white,
       ),
       body: Container(
         color: Colors.grey[200], // Background color
@@ -50,19 +63,19 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     decoration: BoxDecoration(
                       color: selectedGoal == 'Lose Weight'
                           ? Colors.blue.withOpacity(0.2)
-                          : Colors.white, // Rectangle background color
+                          : Colors.grey, // Rectangle background color
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: selectedGoal == 'Lose Weight' ? Colors.blue : Colors.transparent,
                         width: 2,
                       ),
                     ),
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
                         // Text on the left
-                        Expanded(
+                        const Expanded(
                           child: Text(
                             'Lose Weight',
                             style: TextStyle(
@@ -87,8 +100,8 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                 // Appreciative Text for 'Lose Weight'
                 if (selectedGoal == 'Lose Weight')
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1), // Low display background color
                       borderRadius: BorderRadius.circular(10),
@@ -96,7 +109,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     child: Text(
                       getAppreciativeText('Lose Weight'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black87,
                       ),
@@ -109,19 +122,19 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     decoration: BoxDecoration(
                       color: selectedGoal == 'Build Muscle'
                           ? Colors.blue.withOpacity(0.2)
-                          : Colors.white, // Rectangle background color
+                          : Colors.grey, // Rectangle background color
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: selectedGoal == 'Build Muscle' ? Colors.blue : Colors.transparent,
                         width: 2,
                       ),
                     ),
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
                         // Text on the left
-                        Expanded(
+                        const Expanded(
                           child: Text(
                             'Build Muscle',
                             style: TextStyle(
@@ -146,8 +159,8 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                 // Appreciative Text for 'Build Muscle'
                 if (selectedGoal == 'Build Muscle')
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1), // Low display background color
                       borderRadius: BorderRadius.circular(10),
@@ -155,7 +168,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     child: Text(
                       getAppreciativeText('Build Muscle'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black87,
                       ),
@@ -168,19 +181,19 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     decoration: BoxDecoration(
                       color: selectedGoal == 'Keep Fit'
                           ? Colors.blue.withOpacity(0.2)
-                          : Colors.white, // Rectangle background color
+                          : Colors.grey, // Rectangle background color
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: selectedGoal == 'Keep Fit' ? Colors.blue : Colors.transparent,
                         width: 2,
                       ),
                     ),
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
                         // Text on the left
-                        Expanded(
+                        const Expanded(
                           child: Text(
                             'Keep Fit',
                             style: TextStyle(
@@ -205,8 +218,8 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                 // Appreciative Text for 'Keep Fit'
                 if (selectedGoal == 'Keep Fit')
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1), // Low display background color
                       borderRadius: BorderRadius.circular(10),
@@ -214,7 +227,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     child: Text(
                       getAppreciativeText('Keep Fit'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black87,
                       ),
@@ -223,7 +236,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
               ],
             ),
 
-            Spacer(), // Adds space between the buttons and the Next button
+            const Spacer(), // Adds space between the buttons and the Next button
 
             // Next Button Section
             Padding(
@@ -231,22 +244,22 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
               child: ElevatedButton(
                 onPressed: selectedGoal != null
                     ? () {
-                        // Navigate to the MotivateScreen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MotivateScreen()),
-                        );
-                      }
+                  // Navigate to the MotivateScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MotivateScreen()),
+                  );
+                }
                     : null, // Disable button if no goal is selected
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selectedGoal != null ? Colors.black : Colors.grey, // Change color based on selection
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
+                  padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
                   elevation: 5, // Add shadow for depth
                 ),
-                child: Text(
+                child: const Text(
                   "NEXT",
                   style: TextStyle(
                     color: Colors.white,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'height.dart'; // Import the HeightScreen
 
 class BirthScreen extends StatefulWidget {
+  const BirthScreen({super.key});
+
   @override
   _BirthScreenState createState() => _BirthScreenState();
 }
@@ -14,14 +16,18 @@ class _BirthScreenState extends State<BirthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.blue,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
         ),
-        title: Text(
-          "02 ABOUT YOUR BODY",
+        title: const Text(
+          "Birth Screen",
           style: TextStyle(
             color: Colors.black,
             fontSize: 14,
@@ -29,54 +35,63 @@ class _BirthScreenState extends State<BirthScreen> {
           ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 5,
       ),
       body: Container(
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blueGrey, Colors.black12],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+
             // Title
-            Text(
+            const Text(
               "What's your birth year?",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Description Box
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.all(15),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1), // Light blue background
+                color: Colors.black.withOpacity(0.2), // Light blue background
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
+              child: const Row(
                 children: [
-                  Icon(Icons.calendar_today, color: Colors.blue),
+                  Icon(Icons.calendar_today, color: Colors.white),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       "It will help us to adjust the workout that best suits your age group.",
                       style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black54,
+                        fontSize: 16,
+                        color: Colors.white70,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // Scrollable Year Selector
             Expanded(
               child: ListWheelScrollView.useDelegate(
                 itemExtent: 60, // Space between items
-                physics: FixedExtentScrollPhysics(),
+                physics: const FixedExtentScrollPhysics(),
                 diameterRatio: 2.0,
                 onSelectedItemChanged: (index) {
                   setState(() {
@@ -90,11 +105,11 @@ class _BirthScreenState extends State<BirthScreen> {
 
                     return Center(
                       child: AnimatedDefaultTextStyle(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         style: TextStyle(
                           fontSize: isSelected ? 24 : 20,
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected ? Colors.blue : Colors.black54,
+                          color: isSelected ? Colors.blue : Colors.white70,
                         ),
                         child: Text(year.toString()),
                       ),
@@ -113,7 +128,7 @@ class _BirthScreenState extends State<BirthScreen> {
                   // Navigate to the HeightScreen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HeightScreen()),
+                    MaterialPageRoute(builder: (context) => const HeightScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -121,10 +136,10 @@ class _BirthScreenState extends State<BirthScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                   elevation: 5,
                 ),
-                child: Text(
+                child: const Text(
                   "NEXT",
                   style: TextStyle(
                     color: Colors.white,

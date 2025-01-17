@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'workout_detail.dart'; // Import WorkoutDetailScreen
 
 class WorkoutScreen extends StatelessWidget {
+  const WorkoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class WorkoutScreen extends StatelessWidget {
                 onTap: () {
                   Get.back(); // Return to HomeScreen
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(Icons.arrow_back, size: 24, color: Colors.black),
                     SizedBox(width: 10),
@@ -33,18 +35,10 @@ class WorkoutScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Workout Header
-              Text(
-                "Workout Plans",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 20),
+
 
               // Workout Recommendations Section
               Expanded(
@@ -57,28 +51,13 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.green,
                       image: 'lib/assets/images/coach.png',
                       onTap: () {
-                        Get.to(() => WorkoutDetailScreen(
+                        Get.to(() => const WorkoutDetailScreen(
                           title: "Strength Training",
                           description: "A workout to build your strength and endurance.",
                           relatedWorkouts: [
-                            {
-                              "title": "Deadlift",
-                              "duration": "20",
-                              "durationInSeconds": 1200,
-                              "icon": Icons.fitness_center,
-                            },
-                            {
-                              "title": "Squats",
-                              "duration": "15",
-                              "durationInSeconds": 900,
-                              "icon": Icons.sports,
-                            },
-                            {
-                              "title": "Bench Press",
-                              "duration": "25",
-                              "durationInSeconds": 1500,
-                              "icon": Icons.sports_handball,
-                            },
+                            {"title": "Deadlift", "duration": "20", "durationInSeconds": 1200, "icon": Icons.fitness_center},
+                            {"title": "Squats", "duration": "15", "durationInSeconds": 900, "icon": Icons.sports},
+                            {"title": "Bench Press", "duration": "25", "durationInSeconds": 1500, "icon": Icons.sports_handball},
                           ],
                         ));
                       },
@@ -90,28 +69,13 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.blue,
                       image: 'lib/assets/images/coach.png',
                       onTap: () {
-                        Get.to(() => WorkoutDetailScreen(
+                        Get.to(() => const WorkoutDetailScreen(
                           title: "Yoga Flow",
                           description: "A calming workout to improve flexibility and mindfulness.",
                           relatedWorkouts: [
-                            {
-                              "title": "Downward Dog",
-                              "duration": "10",
-                              "durationInSeconds": 600,
-                              "icon": Icons.self_improvement,
-                            },
-                            {
-                              "title": "Child Pose",
-                              "duration": "15",
-                              "durationInSeconds": 900,
-                              "icon": Icons.self_improvement,
-                            },
-                            {
-                              "title": "Warrior Pose",
-                              "duration": "20",
-                              "durationInSeconds": 1200,
-                              "icon": Icons.self_improvement,
-                            },
+                            {"title": "Downward Dog", "duration": "10", "durationInSeconds": 600, "icon": Icons.self_improvement},
+                            {"title": "Child Pose", "duration": "15", "durationInSeconds": 900, "icon": Icons.self_improvement},
+                            {"title": "Warrior Pose", "duration": "20", "durationInSeconds": 1200, "icon": Icons.self_improvement},
                           ],
                         ));
                       },
@@ -123,28 +87,13 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.red,
                       image: 'lib/assets/images/coach.png',
                       onTap: () {
-                        Get.to(() => WorkoutDetailScreen(
+                        Get.to(() => const WorkoutDetailScreen(
                           title: "HIIT",
                           description: "High-intensity interval training for burning calories fast.",
                           relatedWorkouts: [
-                            {
-                              "title": "Jumping Jacks",
-                              "duration": "5",
-                              "durationInSeconds": 300,
-                              "icon": Icons.directions_run,
-                            },
-                            {
-                              "title": "Mountain Climbers",
-                              "duration": "10",
-                              "durationInSeconds": 600,
-                              "icon": Icons.sports_kabaddi,
-                            },
-                            {
-                              "title": "Burpees",
-                              "duration": "5",
-                              "durationInSeconds": 300,
-                              "icon": Icons.fitness_center,
-                            },
+                            {"title": "Jumping Jacks", "duration": "5", "durationInSeconds": 300, "icon": Icons.directions_run},
+                            {"title": "Mountain Climbers", "duration": "10", "durationInSeconds": 600, "icon": Icons.sports_kabaddi},
+                            {"title": "Burpees", "duration": "5", "durationInSeconds": 300, "icon": Icons.fitness_center},
                           ],
                         ));
                       },
@@ -156,28 +105,13 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.orange,
                       image: 'lib/assets/images/coach.png',
                       onTap: () {
-                        Get.to(() => WorkoutDetailScreen(
+                        Get.to(() => const WorkoutDetailScreen(
                           title: "Cardio Blast",
                           description: "A heart-pumping workout to improve cardiovascular health.",
                           relatedWorkouts: [
-                            {
-                              "title": "Running",
-                              "duration": "20",
-                              "durationInSeconds": 1200,
-                              "icon": Icons.directions_run,
-                            },
-                            {
-                              "title": "Cycling",
-                              "duration": "15",
-                              "durationInSeconds": 900,
-                              "icon": Icons.pedal_bike,
-                            },
-                            {
-                              "title": "Jump Rope",
-                              "duration": "5",
-                              "durationInSeconds": 300,
-                              "icon": Icons.sports,
-                            },
+                            {"title": "Running", "duration": "20", "durationInSeconds": 1200, "icon": Icons.directions_run},
+                            {"title": "Cycling", "duration": "15", "durationInSeconds": 900, "icon": Icons.pedal_bike},
+                            {"title": "Jump Rope", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports},
                           ],
                         ));
                       },
@@ -189,35 +123,58 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.purple,
                       image: 'lib/assets/images/coach.png',
                       onTap: () {
-                        Get.to(() => WorkoutDetailScreen(
+                        Get.to(() => const WorkoutDetailScreen(
                           title: "Core Strength",
                           description: "Exercises to build core stability and balance.",
                           relatedWorkouts: [
-                            {
-                              "title": "Plank",
-                              "duration": "10",
-                              "durationInSeconds": 600,
-                              "icon": Icons.stairs,
-                            },
-                            {
-                              "title": "Crunches",
-                              "duration": "15",
-                              "durationInSeconds": 900,
-                              "icon": Icons.fitness_center,
-                            },
-                            {
-                              "title": "Leg Raises",
-                              "duration": "10",
-                              "durationInSeconds": 600,
-                              "icon": Icons.arrow_upward,
-                            },
+                            {"title": "Plank", "duration": "10", "durationInSeconds": 600, "icon": Icons.stairs},
+                            {"title": "Crunches", "duration": "15", "durationInSeconds": 900, "icon": Icons.fitness_center},
+                            {"title": "Leg Raises", "duration": "10", "durationInSeconds": 600, "icon": Icons.arrow_upward},
                           ],
                         ));
                       },
                     ),
+                    _buildWorkoutCard(
+                      title: "Push-Up Challenge",
+                      duration: "15 min",
+                      level: "Beginner",
+                      color: Colors.cyan,
+                      image: 'lib/assets/images/coach.png',
+                      onTap: () {
+                        Get.to(() => const WorkoutDetailScreen(
+                          title: "Push-Up Challenge",
+                          description: "Push yourself with this upper body workout.",
+                          relatedWorkouts: [
+                            {"title": "Wide Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports},
+                            {"title": "Diamond Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports_kabaddi},
+                            {"title": "Incline Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
+                          ],
+                        ));
+                      },
+                    ),
+                    _buildWorkoutCard(
+                      title: "Stretch and Flex",
+                      duration: "20 min",
+                      level: "Beginner",
+                      color: Colors.teal,
+                      image: 'lib/assets/images/coach.png',
+                      onTap: () {
+                        Get.to(() => const WorkoutDetailScreen(
+                          title: "Stretch and Flex",
+                          description: "Improve flexibility with this stretching routine.",
+                          relatedWorkouts: [
+                            {"title": "Hamstring Stretch", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
+                            {"title": "Quadriceps Stretch", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
+                            {"title": "Shoulder Stretch", "duration": "10", "durationInSeconds": 600, "icon": Icons.self_improvement},
+                          ],
+                        ));
+                      },
+                    ),
+                    // Add more exercises here
                   ],
                 ),
               ),
+
             ],
           ),
         ),
@@ -237,8 +194,8 @@ class WorkoutScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(15),
@@ -254,7 +211,7 @@ class WorkoutScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,16 +224,16 @@ class WorkoutScreen extends StatelessWidget {
                       color: color,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       Icon(Icons.timer, size: 14, color: color),
-                      SizedBox(width: 5),
-                      Text(duration, style: TextStyle(color: Colors.black54)),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 5),
+                      Text(duration, style: const TextStyle(color: Colors.black54)),
+                      const SizedBox(width: 10),
                       Icon(Icons.star, size: 14, color: color),
-                      SizedBox(width: 5),
-                      Text(level, style: TextStyle(color: Colors.black54)),
+                      const SizedBox(width: 5),
+                      Text(level, style: const TextStyle(color: Colors.black54)),
                     ],
                   ),
                 ],
