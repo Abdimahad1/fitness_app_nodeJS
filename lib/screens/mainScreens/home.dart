@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "15 min",
                       level: "Beginner",
                       color: Colors.blue,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/pullup.png',
                       description: "A beginner-friendly workout to build upper body strength.",
                       relatedWorkouts: [
                         {"title": "Chin Ups", "duration": "10 min", "icon": Icons.fitness_center},
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "30 min",
                       level: "Intermediate",
                       color: Colors.green,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/situp.png',
                       description: "An intermediate workout to strengthen your core.",
                       relatedWorkouts: [
                         {"title": "Crunches", "duration": "10 min", "icon": Icons.sports},
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "45 min",
                       level: "Advanced",
                       color: Colors.orange,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/bicepsCurl.png',
                       description: "Advanced bicep workout for strength and definition.",
                       relatedWorkouts: [
                         {"title": "Hammer Curls", "duration": "20 min", "icon": Icons.fitness_center},
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "60 min",
                       level: "Intermediate",
                       color: Colors.purple,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/leg.png',
                       description: "An effective workout to strengthen your legs.",
                       relatedWorkouts: [
                         {"title": "Weighted Squats", "duration": "25 min", "icon": Icons.fitness_center},
@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "10 min",
                       level: "Beginner",
                       color: Colors.cyan,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/plank.png',
                       description: "A simple core workout to build endurance.",
                       relatedWorkouts: [
                         {"title": "Side Plank", "duration": "5 min", "icon": Icons.sports_martial_arts},
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       duration: "20 min",
                       level: "Beginner",
                       color: Colors.red,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/pushups.png',
                       description: "A great upper body workout for beginners.",
                       relatedWorkouts: [
                         {"title": "Diamond Push Ups", "duration": "10 min", "icon": Icons.fitness_center},

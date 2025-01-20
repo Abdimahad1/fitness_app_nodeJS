@@ -24,14 +24,7 @@ class WorkoutScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.arrow_back, size: 24, color: Colors.black),
                     SizedBox(width: 10),
-                    Text(
-                      "Back to Home",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
+
                   ],
                 ),
               ),
@@ -49,7 +42,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "45 min",
                       level: "Advanced",
                       color: Colors.green,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/strength.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Strength Training",
@@ -67,7 +60,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "30 min",
                       level: "Beginner",
                       color: Colors.blue,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/yoga.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Yoga Flow",
@@ -85,7 +78,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "20 min",
                       level: "Intermediate",
                       color: Colors.red,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/hiit.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "HIIT",
@@ -103,7 +96,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "40 min",
                       level: "Advanced",
                       color: Colors.orange,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/cardio.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Cardio Blast",
@@ -121,7 +114,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "35 min",
                       level: "Intermediate",
                       color: Colors.purple,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/core.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Core Strength",
@@ -139,7 +132,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "15 min",
                       level: "Beginner",
                       color: Colors.cyan,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/pushupchallenge.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Push-Up Challenge",
@@ -157,7 +150,7 @@ class WorkoutScreen extends StatelessWidget {
                       duration: "20 min",
                       level: "Beginner",
                       color: Colors.teal,
-                      image: 'lib/assets/images/coach.png',
+                      image: 'lib/assets/images/stretch.png',
                       onTap: () {
                         Get.to(() => const WorkoutDetailScreen(
                           title: "Stretch and Flex",

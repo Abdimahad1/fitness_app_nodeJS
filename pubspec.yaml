@@ -34,3 +34,26 @@ flutter:
   assets:
     - lib/assets/images/coach.png
     - lib/assets/images/background.jpg
+    - lib/assets/images/login.png
+    - lib/assets/images/signup.png
+    - lib/assets/images/male.png
+    - lib/assets/images/female.png
+    - lib/assets/images/looseweight.png
+    - lib/assets/images/buildmuscel.png
+    - lib/assets/images/keepfit.png
+    - lib/assets/images/breath.png
+    - lib/assets/images/pullup.png
+    - lib/assets/images/situp.png
+    - lib/assets/images/pushups.png
+    - lib/assets/images/bicepsCurl.png
+    - lib/assets/images/leg.png
+    - lib/assets/images/plank.png
+    - lib/assets/images/strength.png
+    - lib/assets/images/yoga.png
+    - lib/assets/images/hiit.png
+    - lib/assets/images/cardio.png
+    - lib/assets/images/core.png
+    - lib/assets/images/stretch.png
+    - lib/assets/images/pushupchallenge.png
+   
+    
