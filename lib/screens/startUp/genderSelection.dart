@@ -1,5 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:animations/animations.dart'; // For smooth transition animations
+import 'package:get/get.dart';
+import '../../controllers/user_controller.dart'; // Import UserController
 import 'bodyType.dart'; // Import the BodyTypeScreen
 
 class GenderScreen extends StatefulWidget {
@@ -10,11 +12,13 @@ class GenderScreen extends StatefulWidget {
 }
 
 class _GenderScreenState extends State<GenderScreen> {
-  String? selectedGender; // Variable to hold the selected gender
+  final UserController userController = Get.find<UserController>(); // Get the UserController
+  String? selectedGender;
 
   void selectGender(String gender) {
     setState(() {
-      selectedGender = gender; // Update the selected gender
+      selectedGender = gender;
+      userController.updateUser(gender: gender); // Update gender in UserController
     });
   }
 

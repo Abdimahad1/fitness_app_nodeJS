@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controllers/user_controller.dart'; // Import UserController
 import 'weight.dart'; // Import the WeightScreen
 
 class HeightScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class HeightScreen extends StatefulWidget {
 class _HeightScreenState extends State<HeightScreen> {
   double selectedHeight = 165; // Default height in cm
   bool isCm = true; // Toggle between cm and ft
+  final UserController userController = Get.find<UserController>(); // Access UserController
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +162,13 @@ class _HeightScreenState extends State<HeightScreen> {
             // Next Button
             ElevatedButton(
               onPressed: () {
-                // Navigate to the WeightScreen using GetX
+                // Update height in UserController
+                final heightString = isCm
+                    ? "${selectedHeight.toInt()} cm"
+                    : "${selectedHeight.toStringAsFixed(2)} ft";
+                userController.updateUser(height: heightString);
+
+                // Navigate to the WeightScreen
                 Get.to(() => const WeightScreen());
               },
               style: ElevatedButton.styleFrom(

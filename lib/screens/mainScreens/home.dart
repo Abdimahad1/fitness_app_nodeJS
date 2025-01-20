@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../startUp/startNow.dart';
 import 'workout.dart';
+import 'profile.dart';
+import '../../controllers/user_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,44 +28,21 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back Arrow and Header
-              GestureDetector(
-                onTap: () {
-                  Get.to(() => const StartNowScreen());
-                },
-                child: const Row(
-                  children: [
-                    Icon(Icons.arrow_back, size: 24, color: Colors.black),
-                    SizedBox(width: 10),
-                    Text(
-                      "Back to Start",
-                      style: TextStyle(
-                        fontSize: 16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() {
+                    final userName = userController.user.value.name;
+                    return Text(
+                      "Welcome Back, ${userName.isNotEmpty ? userName : 'User'}!",
+                      style: const TextStyle(
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
+                    );
+                  }),
 
-              // Welcome Header
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Welcome Back!",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage('lib/assets/images/user.png'),
-                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -273,9 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
               index: 2,
               isSelected: _currentIndex == 2,
               onTap: () {
-                setState(() {
-                  _currentIndex = 2;
-                });
+                Get.to(() => ProfileScreen());
               },
             ),
           ],

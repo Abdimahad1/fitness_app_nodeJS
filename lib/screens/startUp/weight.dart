@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controllers/user_controller.dart'; // Import the UserController
 import 'startNow.dart'; // Import the StartNowScreen
 
 class WeightScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class _WeightScreenState extends State<WeightScreen> {
   double selectedWeight = 60.0; // Default weight in kg
   double heightInCm = 165; // Default height in cm
   bool isKg = true; // Toggle between kg and lbs
+
+  final UserController userController = Get.find<UserController>(); // Access UserController
 
   String getWeightCategory(double weight, double height) {
     double weightInKg = isKg ? weight : weight / 2.20462; // Convert to kg if in lbs
@@ -182,7 +185,13 @@ class _WeightScreenState extends State<WeightScreen> {
             // Next Button
             ElevatedButton(
               onPressed: () {
-                // Navigate to the StartNowScreen using GetX
+                // Update weight in UserController
+                final weightString = isKg
+                    ? "${selectedWeight.toInt()} kg"
+                    : "${selectedWeight.toInt()} lbs";
+                userController.updateUser(weight: weightString);
+
+                // Navigate to the StartNowScreen
                 Get.to(() => const StartNowScreen());
               },
               style: ElevatedButton.styleFrom(

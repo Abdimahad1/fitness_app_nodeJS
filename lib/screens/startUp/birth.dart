@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controllers/user_controller.dart'; // Import UserController
 import 'height.dart'; // Import the HeightScreen
 
 class BirthScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class BirthScreen extends StatefulWidget {
 class _BirthScreenState extends State<BirthScreen> {
   int selectedYear = 2003; // Default selected year
   final List<int> years = List.generate(2025 - 1990 + 1, (index) => 1990 + index); // Years from 1990 to 2025
+  final UserController userController = Get.find<UserController>(); // Access UserController
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,7 @@ class _BirthScreenState extends State<BirthScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.2), // Light blue background
+                color: Colors.black.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Row(
@@ -90,7 +93,7 @@ class _BirthScreenState extends State<BirthScreen> {
             // Scrollable Year Selector
             Expanded(
               child: ListWheelScrollView.useDelegate(
-                itemExtent: 60, // Space between items
+                itemExtent: 60,
                 physics: const FixedExtentScrollPhysics(),
                 diameterRatio: 2.0,
                 onSelectedItemChanged: (index) {
@@ -125,6 +128,9 @@ class _BirthScreenState extends State<BirthScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: ElevatedButton(
                 onPressed: () {
+                  // Update birth year in UserController
+                  userController.updateUser(birthYear: selectedYear.toString());
+
                   // Navigate to the HeightScreen
                   Navigator.push(
                     context,

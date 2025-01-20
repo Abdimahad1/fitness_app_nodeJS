@@ -1,9 +1,12 @@
+import 'package:fitness_app_nodejs/controllers/user_controller.dart'; // Import UserController
 import 'package:fitness_app_nodejs/screens/authentications/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'screens/authentications/login_screen.dart'; // Adjust the path to your login screen file
 
 void main() {
+  // Initialize the UserController
+  Get.put(UserController()); // Ensures the UserController is available throughout the app
+
   runApp(const MyApp());
 }
 
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp( // Use GetMaterialApp instead of MaterialApp
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fitness App',
       theme: ThemeData(

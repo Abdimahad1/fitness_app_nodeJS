@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controllers/user_controller.dart'; // Import UserController
 import 'motivate.dart'; // Import the MotivateScreen
 
 class BodyTypeScreen extends StatefulWidget {
@@ -10,12 +12,14 @@ class BodyTypeScreen extends StatefulWidget {
 
 class _BodyTypeScreenState extends State<BodyTypeScreen> {
   String? selectedGoal; // Variable to hold the selected goal
+  final UserController userController = Get.find<UserController>(); // Access the UserController
 
-  // Method to select a goal
+  // Method to select a goal and update the UserController
   void selectGoal(String goal) {
     setState(() {
       selectedGoal = goal; // Update the selected goal
     });
+    userController.updateUser(goal: goal); // Update the goal in UserController
   }
 
   // Method to get appropriate text for each selected goal
@@ -74,7 +78,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
-                        // Text on the left
                         const Expanded(
                           child: Text(
                             'Lose Weight',
@@ -85,7 +88,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                             ),
                           ),
                         ),
-                        // Image on the right
                         Image.asset(
                           'lib/assets/images/coach.png',
                           width: 100,
@@ -97,13 +99,12 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   ),
                 ),
 
-                // Appreciative Text for 'Lose Weight'
                 if (selectedGoal == 'Lose Weight')
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1), // Low display background color
+                      color: Colors.blue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -122,7 +123,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     decoration: BoxDecoration(
                       color: selectedGoal == 'Build Muscle'
                           ? Colors.blue.withOpacity(0.2)
-                          : Colors.grey, // Rectangle background color
+                          : Colors.grey,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: selectedGoal == 'Build Muscle' ? Colors.blue : Colors.transparent,
@@ -133,7 +134,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
-                        // Text on the left
                         const Expanded(
                           child: Text(
                             'Build Muscle',
@@ -144,7 +144,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                             ),
                           ),
                         ),
-                        // Image on the right
                         Image.asset(
                           'lib/assets/images/coach.png',
                           width: 100,
@@ -156,13 +155,12 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   ),
                 ),
 
-                // Appreciative Text for 'Build Muscle'
                 if (selectedGoal == 'Build Muscle')
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1), // Low display background color
+                      color: Colors.blue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -181,7 +179,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     decoration: BoxDecoration(
                       color: selectedGoal == 'Keep Fit'
                           ? Colors.blue.withOpacity(0.2)
-                          : Colors.grey, // Rectangle background color
+                          : Colors.grey,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: selectedGoal == 'Keep Fit' ? Colors.blue : Colors.transparent,
@@ -192,7 +190,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       children: [
-                        // Text on the left
                         const Expanded(
                           child: Text(
                             'Keep Fit',
@@ -203,7 +200,6 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                             ),
                           ),
                         ),
-                        // Image on the right
                         Image.asset(
                           'lib/assets/images/coach.png',
                           width: 100,
@@ -215,13 +211,12 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   ),
                 ),
 
-                // Appreciative Text for 'Keep Fit'
                 if (selectedGoal == 'Keep Fit')
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1), // Low display background color
+                      color: Colors.blue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -235,29 +230,24 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   ),
               ],
             ),
-
-            const Spacer(), // Adds space between the buttons and the Next button
-
-            // Next Button Section
+            const Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: 40.0), // Add space from the bottom
+              padding: const EdgeInsets.only(bottom: 40.0),
               child: ElevatedButton(
                 onPressed: selectedGoal != null
                     ? () {
-                  // Navigate to the MotivateScreen
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const MotivateScreen()),
                   );
                 }
-                    : null, // Disable button if no goal is selected
+                    : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: selectedGoal != null ? Colors.black : Colors.grey, // Change color based on selection
+                  backgroundColor: selectedGoal != null ? Colors.black : Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20), // Increased padding for larger button
-                  elevation: 5, // Add shadow for depth
+                  padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                 ),
                 child: const Text(
                   "NEXT",
