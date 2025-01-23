@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(), // Set StartNowScreen as the initial screen
+      home: const HelloScreen(), // Set StartNowScreen as the initial screen
     );
   }
 }

@@ -18,10 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final UserController userController = Get.find<UserController>();
   int _currentIndex = 0; // Track the current index of the bottom navigation bar
   bool _isBreathTestAnimating = false;
-  int _selectedTime = 0;
+  int _selectedTime = 10; // Default time for breath-holding challenge
   Timer? _timer;
   double _progress = 0.0;
   bool _isBreathHolding = false;
+  bool _isPaused = false; // Tracks if the progress is paused
+  List<String> _notifications = []; // Stores breath test results
+  bool _hasNewNotification = false; // Tracks if there are new notifications
 
   // Recommended Workouts List
   final List<Map<String, dynamic>> recommendedWorkouts = [
@@ -108,22 +111,31 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black,
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-              Get.snackbar(
-                "Notifications",
-                "You have no new notifications.",
-                snackPosition: SnackPosition.TOP,
-                backgroundColor: Colors.cyanAccent,
-                colorText: Colors.black,
-                margin: const EdgeInsets.all(10),
-                borderRadius: 15,
-                animationDuration: const Duration(milliseconds: 500),
-                duration: const Duration(seconds: 3),
-                icon: const Icon(Icons.notifications, color: Colors.black),
-              );
-            },
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications, color: Colors.white),
+                onPressed: () {
+                  setState(() {
+                    _hasNewNotification = false; // Clear red dot
+                  });
+                  _showNotifications();
+                },
+              ),
+              if (_hasNewNotification)
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    height: 10,
+                    width: 10,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ],
       ),
@@ -303,94 +315,144 @@ class _HomeScreenState extends State<HomeScreen> {
       barrierDismissible: false,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) {
-          return AlertDialog(
-            backgroundColor: Colors.white,
+          return Dialog(
+            backgroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            title: const Text(
-              "Choose a Challenge",
-              style: TextStyle(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: [10, 20, 30, 40, 50, 60, 120, 180].map((time) {
-                    return ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedTime == time
-                            ? Colors.blue
-                            : Colors.grey,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Increment and Decrement Buttons for Time Selection
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (_selectedTime > 10) {
+                              _selectedTime -= 10;
+                            }
+                          });
+                        },
+                        icon: const Icon(Icons.remove, color: Colors.white),
+                      ),
+                      Text(
+                        "${_selectedTime ~/ 60} min ${_selectedTime % 60} sec",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _selectedTime = time;
-                          _progress = 0.0;
-                        });
-                      },
-                      child: Text("${time ~/ 60}m ${time % 60}s"),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 20),
-                LinearProgressIndicator(
-                  value: _progress,
-                  backgroundColor: Colors.grey.shade200,
-                  color: Colors.blue,
-                  minHeight: 10,
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  "Hold your breath until the timer finishes!",
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (_selectedTime < 180) {
+                              _selectedTime += 10;
+                            }
+                          });
+                        },
+                        icon: const Icon(Icons.add, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Progress Circle
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        value: _progress,
+                        backgroundColor: Colors.white24,
+                        color: Colors.blue,
+                        strokeWidth: 8,
+                      ),
+                      Text(
+                        _progress >= 1.0
+                            ? "Done"
+                            : "${_selectedTime ~/ 60}:${_selectedTime % 60}",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Instructions
+                  const Text(
+                    "Hold your breath and watch your progress!",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Buttons (Pause, Start, Cancel - Icons Only)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // Pause Button
+                      IconButton(
+                        onPressed: _isBreathHolding
+                            ? () {
+                                setState(() {
+                                  if (_isPaused) {
+                                    _startBreathTest(setState); // Resume
+                                  } else {
+                                    _timer?.cancel();
+                                  }
+                                  _isPaused = !_isPaused;
+                                });
+                              }
+                            : null,
+                        icon: Icon(
+                          _isPaused ? Icons.play_arrow : Icons.pause,
+                          color: Colors.white,
+                        ),
+                        iconSize: 32,
+                      ),
+
+                      // Start Button
+                      IconButton(
+                        onPressed: !_isBreathHolding
+                            ? () {
+                                setState(() {
+                                  _progress = 0.0;
+                                  _isBreathHolding = true;
+                                  _startBreathTest(setState);
+                                });
+                              }
+                            : null,
+                        icon: const Icon(Icons.play_arrow, color: Colors.blue),
+                        iconSize: 32,
+                      ),
+
+                      // Cancel Button
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _progress = 0.0;
+                            _timer?.cancel();
+                            _isBreathHolding = false;
+                            _isPaused = false;
+                          });
+                        },
+                        icon: const Icon(Icons.close, color: Colors.red),
+                        iconSize: 32,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            actions: [
-              if (_isBreathHolding)
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _timer?.cancel();
-                      _progress = 0.0;
-                      _isBreathHolding = false;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text("Restart"),
-                ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _isBreathHolding = false;
-                    _progress = 0.0;
-                    _timer?.cancel();
-                  });
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                child: const Text("Cancel"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_selectedTime > 0) {
-                    setState(() {
-                      _isBreathHolding = true;
-                    });
-                    _startBreathTest(setState);
-                  }
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                child: const Text("Start"),
-              ),
-            ],
           );
         },
       ),
@@ -411,6 +473,14 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_progress >= 1.0) {
           timer.cancel();
           _isBreathHolding = false;
+          _isPaused = false;
+
+          // Add result to notifications
+          _notifications.add(
+              "You held your breath for $totalTime seconds. Great job!");
+          _hasNewNotification = true;
+
+          // Notify user
           Get.snackbar(
             "Congratulations!",
             "You held your breath for $totalTime seconds!",
@@ -421,6 +491,51 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       });
     });
+  }
+
+  void _showNotifications() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Notifications",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                if (_notifications.isEmpty)
+                  const Text(
+                    "No notifications yet.",
+                    style: TextStyle(color: Colors.white70),
+                  )
+                else
+                  ..._notifications.map((notification) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Text(
+                          notification,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      )),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildExerciseBox(Map<String, dynamic> workout) {
