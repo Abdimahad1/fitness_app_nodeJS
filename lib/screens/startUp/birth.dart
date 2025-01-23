@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/user_controller.dart'; // Import UserController
-import 'height.dart'; // Import the HeightScreen
+import 'height.dart';
+import 'motivate.dart'; // Import the HeightScreen
 
 class BirthScreen extends StatefulWidget {
   const BirthScreen({super.key});
@@ -25,7 +26,7 @@ class _BirthScreenState extends State<BirthScreen> {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.offAll(() => const MotivateScreen()), // Changed to navigate back to MotivateScreen
             ),
           ),
         ),

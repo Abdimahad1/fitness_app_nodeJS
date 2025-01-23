@@ -1,3 +1,4 @@
+import 'package:fitness_app_nodejs/screens/startUp/weight.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../mainScreens/home.dart'; // Import the HomeScreen
@@ -15,7 +16,7 @@ class StartNowScreen extends StatelessWidget {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.offAll(() => const WeightScreen()), // Changed to navigate back to WeightScreen
             ),
           ),
         ),

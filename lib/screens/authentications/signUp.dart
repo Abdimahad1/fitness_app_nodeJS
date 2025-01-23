@@ -240,7 +240,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.back();
+                              Get.offAll(() => const LoginScreen());
                             },
                             child: const Text(
                               "Log In",

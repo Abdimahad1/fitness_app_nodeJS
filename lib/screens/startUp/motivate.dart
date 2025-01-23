@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'birth.dart'; // Import the BirthScreen
 import 'package:get/get.dart';
 
+import 'bodyType.dart';
+
 class MotivateScreen extends StatefulWidget {
   const MotivateScreen({super.key});
 
@@ -37,7 +39,7 @@ class _MotivateScreenState extends State<MotivateScreen> {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.offAll(() => const BodyTypeScreen()), // Changed to navigate back to BodyTypeScreen
             ),
           ),
         ),

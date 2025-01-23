@@ -62,5 +62,39 @@ flutter:
     - lib/assets/images/legwork.png
     - lib/assets/images/shoulder.png
     - lib/assets/images/cardioo.png
-   
-    
+    - lib/assets/images/boxing.png
+    - lib/assets/images/back.png
+    - lib/assets/images/yoga.png
+    - lib/assets/images/stretching.png
+    - lib/assets/images/Jumping_Jacks.png
+    - lib/assets/images/burbees.png
+    - lib/assets/images/high_knees.png
+    - lib/assets/images/crunches.png
+    - lib/assets/images/chest_press.png
+    - lib/assets/images/squats.png
+    - lib/assets/images/curl.png
+    - lib/assets/images/diamond.png
+    - lib/assets/images/front.png
+    - lib/assets/images/leg_raises.png
+    - lib/assets/images/leg_press.png
+    - lib/assets/images/leteral.png
+    - lib/assets/images/lunges.png
+    - lib/assets/images/over_head.png
+    - lib/assets/images/shoulder_press.png
+    - lib/assets/images/tricep.png
+    - lib/assets/images/stretching.png
+    - lib/assets/images/burbees.png
+    - lib/assets/images/high_knees.png
+    - lib/assets/images/pull_down.png
+    - lib/assets/images/seated_rows.png
+    - lib/assets/images/deadlift.png
+    - lib/assets/images/worier_pose.png
+    - lib/assets/images/dog.png
+    - lib/assets/images/tree_pose.png
+    - lib/assets/images/hooks.png
+    - lib/assets/images/jab.png
+    - lib/assets/images/upper_cut.png
+    - lib/assets/images/harmstring.png
+    - lib/assets/images/quad.png
+    - lib/assets/images/shoulder_stretch.png
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/user_controller.dart'; // Import UserController
+import 'birth.dart';
 import 'weight.dart'; // Import the WeightScreen
 
 class HeightScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HeightScreenState extends State<HeightScreen> {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.offAll(() => const BirthScreen()), // Changed to navigate back to BirthScreen
             ),
           ),
         ),

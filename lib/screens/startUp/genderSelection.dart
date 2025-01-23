@@ -2,7 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/user_controller.dart'; // Import UserController
-import 'bodyType.dart'; // Import the BodyTypeScreen
+import 'bodyType.dart';
+import 'hello.dart'; // Import the BodyTypeScreen
 
 class GenderScreen extends StatefulWidget {
   const GenderScreen({super.key});
@@ -32,7 +33,7 @@ class _GenderScreenState extends State<GenderScreen> {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Get.offAll(() => const GenderScreen()),
+              onPressed: () => Get.offAll(() => const HelloScreen()), // Changed to navigate back to HelloScreen
             ),
           ),
         ),
