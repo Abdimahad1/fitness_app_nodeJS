@@ -76,6 +76,8 @@ class UserController extends GetxController {
           weight: data['weight'] ?? '',
         );
 
+        print("User logged in: ${user.value.name}");
+
         return {
           'success': true,
           'data': data,
@@ -103,12 +105,17 @@ class UserController extends GetxController {
     String? height,
     String? weight,
   }) {
-    if (name != null) user.value.name = name;
-    if (gender != null) user.value.gender = gender;
-    if (goal != null) user.value.goal = goal;
-    if (birthYear != null) user.value.birthYear = birthYear;
-    if (height != null) user.value.height = height;
-    if (weight != null) user.value.weight = weight;
+    print("Updating user data...");
+    print("Current user data: ${user.value}");
+
+    user.value.name = name ?? (user.value.name.isEmpty ? 'Guest' : user.value.name);
+    user.value.gender = gender ?? user.value.gender;
+    user.value.goal = goal ?? user.value.goal;
+    user.value.birthYear = birthYear ?? user.value.birthYear;
+    user.value.height = height ?? user.value.height;
+    user.value.weight = weight ?? user.value.weight;
+
+    print("Updated user data: ${user.value}");
   }
 
   // Logout Method

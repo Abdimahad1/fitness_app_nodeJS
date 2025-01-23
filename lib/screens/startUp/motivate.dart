@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'birth.dart'; // Import the BirthScreen
+import 'package:get/get.dart';
 
 class MotivateScreen extends StatefulWidget {
   const MotivateScreen({super.key});
@@ -125,11 +126,7 @@ class _MotivateScreenState extends State<MotivateScreen> {
                 onPressed: selectedMotivations.contains(true)
                     ? () {
                   // Navigate to the BirthScreen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BirthScreen()),
-                  );
+                  Get.offAll(() => const BirthScreen());
                 }
                     : null, // Disable if no option is selected
                 style: ElevatedButton.styleFrom(

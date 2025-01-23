@@ -246,11 +246,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   child: ElevatedButton(
                     onPressed: selectedGoal != null
                         ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MotivateScreen()),
-                      );
+                      Get.offAll(() => const MotivateScreen());
                     }
                         : null,
                     style: ElevatedButton.styleFrom(

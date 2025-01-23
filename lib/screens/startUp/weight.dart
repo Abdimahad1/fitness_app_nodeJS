@@ -192,7 +192,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 userController.updateUser(weight: weightString);
 
                 // Navigate to the StartNowScreen
-                Get.to(() => const StartNowScreen());
+                Get.offAll(() => const StartNowScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

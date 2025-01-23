@@ -2,6 +2,7 @@ import 'package:fitness_app_nodejs/screens/authentications/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/user_controller.dart';
+import '../mainScreens/home.dart';
 import '../startUp/hello.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,9 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
       final email = _emailController.text.trim();
       final password = _passwordController.text;
 
-      // Simulating a login delay of up to 5 seconds
-      await Future.delayed(const Duration(seconds: 5));
-
       final result = await userController.login(email, password);
 
       setState(() {
@@ -45,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
           colorText: Colors.white,
         );
 
-        // Navigate to HelloScreen
-        Get.off(() => const HelloScreen());
+        // Navigate to HelloScreen after successful login
+        Get.offAll(() => const HelloScreen());
       } else {
         Get.snackbar(
           'Error',
@@ -203,12 +201,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            "Don’t have an account? ",
+                            "Don't have an account? ",
                             style: TextStyle(color: Colors.white70),
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.to(() => const SignUpScreen());
+                              Get.offAll(() => const LoginScreen());
                             },
                             child: const Text(
                               "Sign Up",

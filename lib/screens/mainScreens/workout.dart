@@ -1,173 +1,164 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'workout_detail.dart'; // Import WorkoutDetailScreen
 
-class WorkoutScreen extends StatelessWidget {
+class WorkoutScreen extends StatefulWidget {
   const WorkoutScreen({super.key});
+
+  @override
+  _WorkoutScreenState createState() => _WorkoutScreenState();
+}
+
+class _WorkoutScreenState extends State<WorkoutScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> allWorkouts = [];
+  List<Map<String, dynamic>> filteredWorkouts = [];
+  List<Map<String, dynamic>> recommendedWorkouts = [];
+  bool isSearching = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize workouts
+    allWorkouts = [
+      {'image': 'lib/assets/images/absworkout.png', 'title': 'Abs Workout', 'duration': '10 min', 'reps': '15 reps'},
+      {'image': 'lib/assets/images/cardioo.png', 'title': 'Cardio Workout', 'duration': '30 min', 'reps': '20 mins'},
+      {'image': 'lib/assets/images/chest.png', 'title': 'Chest Workout', 'duration': '15 min', 'reps': '12 reps'},
+      {'image': 'lib/assets/images/arm.png', 'title': 'Arm Workout', 'duration': '20 min', 'reps': '10 reps'},
+      {'image': 'lib/assets/images/legwork.png', 'title': 'Leg Workout', 'duration': '25 min', 'reps': '15 reps'},
+      {'image': 'lib/assets/images/shoulder.png', 'title': 'Shoulder Workout', 'duration': '30 min', 'reps': '10 reps'},
+      {'image': 'lib/assets/images/yoga.png', 'title': 'Yoga Flow', 'duration': '40 min', 'reps': 'Beginner'},
+      {'image': 'lib/assets/images/boxing.png', 'title': 'Boxing Basics', 'duration': '20 min', 'reps': 'Intermediate'},
+      {'image': 'lib/assets/images/pilates.png', 'title': 'Pilates', 'duration': '30 min', 'reps': 'Intermediate'},
+      {'image': 'lib/assets/images/hiit.png', 'title': 'HIIT Workout', 'duration': '15 min', 'reps': 'High Intensity'},
+      {'image': 'lib/assets/images/stretching.png', 'title': 'Stretching', 'duration': '20 min', 'reps': 'Beginner'},
+    ];
+
+    // Recommended workouts (specific subset of all workouts)
+    recommendedWorkouts = [
+      allWorkouts[0], // Abs Workout
+      allWorkouts[2], // Chest Workout
+    ];
+
+    filteredWorkouts = List.from(allWorkouts);
+  }
+
+  void _filterWorkouts(String query) {
+    setState(() {
+      isSearching = query.isNotEmpty;
+      if (query.isEmpty) {
+        filteredWorkouts = List.from(allWorkouts);
+      } else {
+        filteredWorkouts = allWorkouts
+            .where((workout) => workout['title']
+            .toLowerCase()
+            .contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          "Workouts",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back Arrow and Header
-              GestureDetector(
-                onTap: () {
-                  Get.back(); // Return to HomeScreen
-                },
-                child: const Row(
-                  children: [
-                    Icon(Icons.arrow_back, size: 24, color: Colors.black),
-                    SizedBox(width: 10),
-
-                  ],
+              const Text(
+                "Explore Workouts",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Workout Header
-
-
-              // Workout Recommendations Section
-              Expanded(
-                child: ListView(
-                  children: [
-                    _buildWorkoutCard(
-                      title: "Strength Training",
-                      duration: "45 min",
-                      level: "Advanced",
-                      color: Colors.green,
-                      image: 'lib/assets/images/strength.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Strength Training",
-                          description: "A workout to build your strength and endurance.",
-                          relatedWorkouts: [
-                            {"title": "Deadlift", "duration": "20", "durationInSeconds": 1200, "icon": Icons.fitness_center},
-                            {"title": "Squats", "duration": "15", "durationInSeconds": 900, "icon": Icons.sports},
-                            {"title": "Bench Press", "duration": "25", "durationInSeconds": 1500, "icon": Icons.sports_handball},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "Yoga Flow",
-                      duration: "30 min",
-                      level: "Beginner",
-                      color: Colors.blue,
-                      image: 'lib/assets/images/yoga.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Yoga Flow",
-                          description: "A calming workout to improve flexibility and mindfulness.",
-                          relatedWorkouts: [
-                            {"title": "Downward Dog", "duration": "10", "durationInSeconds": 600, "icon": Icons.self_improvement},
-                            {"title": "Child Pose", "duration": "15", "durationInSeconds": 900, "icon": Icons.self_improvement},
-                            {"title": "Warrior Pose", "duration": "20", "durationInSeconds": 1200, "icon": Icons.self_improvement},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "HIIT",
-                      duration: "20 min",
-                      level: "Intermediate",
-                      color: Colors.red,
-                      image: 'lib/assets/images/hiit.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "HIIT",
-                          description: "High-intensity interval training for burning calories fast.",
-                          relatedWorkouts: [
-                            {"title": "Jumping Jacks", "duration": "5", "durationInSeconds": 300, "icon": Icons.directions_run},
-                            {"title": "Mountain Climbers", "duration": "10", "durationInSeconds": 600, "icon": Icons.sports_kabaddi},
-                            {"title": "Burpees", "duration": "5", "durationInSeconds": 300, "icon": Icons.fitness_center},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "Cardio Blast",
-                      duration: "40 min",
-                      level: "Advanced",
-                      color: Colors.orange,
-                      image: 'lib/assets/images/cardio.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Cardio Blast",
-                          description: "A heart-pumping workout to improve cardiovascular health.",
-                          relatedWorkouts: [
-                            {"title": "Running", "duration": "20", "durationInSeconds": 1200, "icon": Icons.directions_run},
-                            {"title": "Cycling", "duration": "15", "durationInSeconds": 900, "icon": Icons.pedal_bike},
-                            {"title": "Jump Rope", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "Core Strength",
-                      duration: "35 min",
-                      level: "Intermediate",
-                      color: Colors.purple,
-                      image: 'lib/assets/images/core.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Core Strength",
-                          description: "Exercises to build core stability and balance.",
-                          relatedWorkouts: [
-                            {"title": "Plank", "duration": "10", "durationInSeconds": 600, "icon": Icons.stairs},
-                            {"title": "Crunches", "duration": "15", "durationInSeconds": 900, "icon": Icons.fitness_center},
-                            {"title": "Leg Raises", "duration": "10", "durationInSeconds": 600, "icon": Icons.arrow_upward},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "Push-Up Challenge",
-                      duration: "15 min",
-                      level: "Beginner",
-                      color: Colors.cyan,
-                      image: 'lib/assets/images/pushupchallenge.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Push-Up Challenge",
-                          description: "Push yourself with this upper body workout.",
-                          relatedWorkouts: [
-                            {"title": "Wide Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports},
-                            {"title": "Diamond Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.sports_kabaddi},
-                            {"title": "Incline Push Ups", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
-                          ],
-                        ));
-                      },
-                    ),
-                    _buildWorkoutCard(
-                      title: "Stretch and Flex",
-                      duration: "20 min",
-                      level: "Beginner",
-                      color: Colors.teal,
-                      image: 'lib/assets/images/stretch.png',
-                      onTap: () {
-                        Get.to(() => const WorkoutDetailScreen(
-                          title: "Stretch and Flex",
-                          description: "Improve flexibility with this stretching routine.",
-                          relatedWorkouts: [
-                            {"title": "Hamstring Stretch", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
-                            {"title": "Quadriceps Stretch", "duration": "5", "durationInSeconds": 300, "icon": Icons.self_improvement},
-                            {"title": "Shoulder Stretch", "duration": "10", "durationInSeconds": 600, "icon": Icons.self_improvement},
-                          ],
-                        ));
-                      },
-                    ),
-                    // Add more exercises here
-                  ],
+              // Search Bar
+              TextField(
+                controller: _searchController,
+                onChanged: _filterWorkouts,
+                decoration: InputDecoration(
+                  hintText: "Search workouts...",
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
                 ),
               ),
+              const SizedBox(height: 20),
 
+              if (!isSearching) ...[
+                // Recommended Workouts Section
+                const Text(
+                  "Recommended Workouts",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: recommendedWorkouts
+                      .map((workout) => _buildExerciseBox(
+                      workout['image'],
+                      workout['title'],
+                      workout['duration'],
+                      workout['reps'],
+                      isRecommended: true))
+                      .toList(),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+
+              // All Workouts Section
+              if (isSearching || filteredWorkouts.isNotEmpty)
+                const Text(
+                  "All Workouts",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              const SizedBox(height: 10),
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: filteredWorkouts
+                    .map((workout) => _buildExerciseBox(
+                    workout['image'],
+                    workout['title'],
+                    workout['duration'],
+                    workout['reps']))
+                    .toList(),
+              ),
             ],
           ),
         ),
@@ -175,66 +166,66 @@ class WorkoutScreen extends StatelessWidget {
     );
   }
 
-  // Workout Card Widget
-  Widget _buildWorkoutCard({
-    required String title,
-    required String duration,
-    required String level,
-    required Color color,
-    required String image,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(15),
+  Widget _buildExerciseBox(String imagePath, String title, String duration, String reps, {bool isRecommended = false}) {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.grey.shade200,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              height: 150,
+              width: double.infinity,
+            ),
+          ),
         ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                image,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
+        if (isRecommended)
+          Positioned(
+            top: 10,
+            left: 10,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text(
+                "Recommended",
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Icon(Icons.timer, size: 14, color: color),
-                      const SizedBox(width: 5),
-                      Text(duration, style: const TextStyle(color: Colors.black54)),
-                      const SizedBox(width: 10),
-                      Icon(Icons.star, size: 14, color: color),
-                      const SizedBox(width: 5),
-                      Text(level, style: const TextStyle(color: Colors.black54)),
-                    ],
-                  ),
-                ],
+          ),
+        Positioned(
+          bottom: 20,
+          left: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+              Text(
+                '$duration, $reps',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

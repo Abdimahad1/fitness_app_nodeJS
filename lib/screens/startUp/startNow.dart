@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../mainScreens/home.dart'; // Import the HomeScreen
 
 class StartNowScreen extends StatelessWidget {
@@ -66,7 +67,7 @@ class StartNowScreen extends StatelessWidget {
 
             // Subheading Text
             const Text(
-              "We’ve organized all your details and scheduled everything. Now, let’s begin your fitness journey and achieve your goals!",
+              "We've organized all your details and scheduled everything. Now, let's begin your fitness journey and achieve your goals!",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white70,
@@ -79,11 +80,8 @@ class StartNowScreen extends StatelessWidget {
             // Start Journey Button
             ElevatedButton(
               onPressed: () {
-                // Navigate to the HomeScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                // Navigate to HomeScreen after completing the start process
+                Get.off(() => const HomeScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

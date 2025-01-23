@@ -32,7 +32,7 @@ class _GenderScreenState extends State<GenderScreen> {
             backgroundColor: Colors.blue,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Get.offAll(() => const GenderScreen()),
             ),
           ),
         ),

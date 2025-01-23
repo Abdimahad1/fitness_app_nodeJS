@@ -1,5 +1,7 @@
 import 'package:fitness_app_nodejs/controllers/user_controller.dart'; // Import UserController
 import 'package:fitness_app_nodejs/screens/authentications/login_screen.dart';
+import 'package:fitness_app_nodejs/screens/mainScreens/home.dart';
+import 'package:fitness_app_nodejs/screens/startUp/startNow.dart'; // Import StartNowScreen
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(), // Loads the login screen as the first screen
+      home: const HomeScreen(), // Set StartNowScreen as the initial screen
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'genderSelection.dart'; // Updated import to reference the correct file
 import 'package:animated_text_kit/animated_text_kit.dart'; // Import for animated text
+import 'package:get/get.dart';
 
 class HelloScreen extends StatelessWidget {
   const HelloScreen({super.key});
@@ -96,11 +97,7 @@ class HelloScreen extends StatelessWidget {
                   // Button with animation
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const GenderScreen()),
-                      );
+                      Get.offAll(() => const GenderScreen());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white.withOpacity(0.9),

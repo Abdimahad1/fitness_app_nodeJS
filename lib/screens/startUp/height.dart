@@ -169,7 +169,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 userController.updateUser(height: heightString);
 
                 // Navigate to the WeightScreen
-                Get.to(() => const WeightScreen());
+                Get.offAll(() => const WeightScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

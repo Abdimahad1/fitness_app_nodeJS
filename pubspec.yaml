@@ -21,6 +21,7 @@ dependencies:
   animated_text_kit: ^4.2.0
   animations: ^2.0.6
   http: ^1.2.2
+  video_player: ^2.2.10
 
 dev_dependencies:
   flutter_test:
@@ -55,5 +56,11 @@ flutter:
     - lib/assets/images/core.png
     - lib/assets/images/stretch.png
     - lib/assets/images/pushupchallenge.png
+    - lib/assets/images/absworkout.png
+    - lib/assets/images/chest.png
+    - lib/assets/images/arm.png
+    - lib/assets/images/legwork.png
+    - lib/assets/images/shoulder.png
+    - lib/assets/images/cardioo.png
    
     
