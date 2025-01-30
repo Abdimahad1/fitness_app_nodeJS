@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 void main() {
   // Initialize the UserController
-  Get.put(UserController()); // Ensures the UserController is available throughout the app
+  Get.put(UserController()); // Instantiate UserController here
 
   runApp(const MyApp());
 }
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HelloScreen(), // Set StartNowScreen as the initial screen
+      home: const HomeScreen(), // Set StartNowScreen as the initial screen
     );
   }
 }

@@ -43,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
           colorText: Colors.white,
         );
 
-        // Navigate to HelloScreen after successful login
-        Get.offAll(() => const HelloScreen());
+        // Navigate to HomeScreen after successful login
+        Get.offAll(() => const HomeScreen());
       } else {
         Get.snackbar(
           'Error',

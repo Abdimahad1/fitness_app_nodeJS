@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controllers/user_controller.dart';
 
 class WorkoutDetailScreen extends StatelessWidget {
   final String imagePath;
   final String title;
   final String duration;
   final String reps;
-  final List<Map<String, String>> relatedWorkouts;
+  final List<dynamic> relatedWorkouts;
 
   const WorkoutDetailScreen({
-    super.key,
     required this.imagePath,
     required this.title,
     required this.duration,
     required this.reps,
     required this.relatedWorkouts,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find<UserController>();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -98,20 +102,42 @@ class WorkoutDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: relatedWorkouts.isNotEmpty
                   ? Column(
-                children: relatedWorkouts.map((workout) {
-                  return _relatedWorkoutCard(
-                    context,
-                    workout['image'] ??
-                        'lib/assets/images/placeholder.png',
-                    workout['name'] ?? 'Unknown Exercise',
-                    workout['reps'] ?? 'Unknown',
-                  );
-                }).toList(),
-              )
+                      children: relatedWorkouts.map((workout) {
+                        return _relatedWorkoutCard(
+                          context,
+                          workout['image'] ?? 'lib/assets/images/placeholder.png',
+                          workout['name'] ?? 'Unknown Exercise',
+                          workout['reps'] ?? 'Unknown',
+                          userController,
+                        );
+                      }).toList(),
+                    )
                   : const Center(
-                child: Text("No related exercises found."),
+                      child: Text("No related exercises found."),
+                    ),
+            ),
+            const SizedBox(height: 20),
+
+            // Save Workout Button (Removed backend logic)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Logic for saving workout without backend integration
+                  Get.snackbar('Info', 'Workout save logic will be implemented here.');
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 5,
+                ),
+                child: const Text('Save Workout'),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -147,7 +173,7 @@ class WorkoutDetailScreen extends StatelessWidget {
   }
 
   Widget _relatedWorkoutCard(
-      BuildContext context, String imagePath, String title, String duration) {
+      BuildContext context, String imagePath, String title, String duration, UserController userController) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(10),
@@ -215,17 +241,16 @@ class WorkoutDetailScreen extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   child: Center(
                     child: Stack(
-                      alignment: Alignment.topRight, // Align the cancel button to the top-right
+                      alignment: Alignment.topRight,
                       children: [
                         // Full-Screen Image with Rounded Corners
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(20), // Rounded corners
+                          borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
                             imagePath,
-                            fit: BoxFit.contain, // Ensure full image visibility
+                            fit: BoxFit.contain,
                           ),
                         ),
-
                         // Cancel Icon Positioned on the Image
                         Positioned(
                           top: 10,
@@ -235,9 +260,9 @@ class WorkoutDetailScreen extends StatelessWidget {
                               Navigator.pop(context); // Close the dialog
                             },
                             child: CircleAvatar(
-                              backgroundColor: Colors.red, // Red background
+                              backgroundColor: Colors.red,
                               radius: 20,
-                              child: const Icon(Icons.close, color: Colors.white), // White icon
+                              child: const Icon(Icons.close, color: Colors.white),
                             ),
                           ),
                         ),

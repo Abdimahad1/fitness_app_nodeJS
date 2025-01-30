@@ -6,6 +6,8 @@ import 'workout.dart'; // Import the WorkoutScreen
 import 'profile.dart';
 import '../../controllers/user_controller.dart';
 import 'workout_detail.dart'; // Import WorkoutDetailScreen for navigation
+import 'plan.dart'; // Import the ReportScreen
+import '../startUp/hello.dart'; // Import the HelloScreen
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -137,6 +139,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
             ],
           ),
+          IconButton(
+            icon: const Icon(Icons.assignment, color: Colors.white),
+            onPressed: () {
+               Get.to(() => const HelloScreen()); 
+              // Add your report action here
+            },
+          ),
+         
         ],
       ),
       body: SingleChildScrollView(
@@ -146,9 +156,8 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Obx(() {
-                final userName = userController.user.value.name;
                 return Text(
-                  "Welcome ${userName.isNotEmpty ? userName : 'User'}!",
+                  "Welcome ${userController.user.value.name.isNotEmpty ? userController.user.value.name : 'User'}!",
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -207,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(30),
           ),
           child: BottomNavigationBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.black,
             elevation: 0,
             items: const [
               BottomNavigationBarItem(
@@ -234,6 +243,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 label: '',
               ),
+              BottomNavigationBarItem(
+                icon: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.calendar_today, color: Colors.black),
+                ),
+                label: '',
+              ),
             ],
             currentIndex: _currentIndex,
             selectedItemColor: Colors.white,
@@ -246,6 +263,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.to(() => const WorkoutScreen());
               } else if (index == 2) {
                 Get.to(() => const ProfileScreen());
+              } else if (index == 3) {
+                Get.to(() => const PlanScreen());
               }
             },
           ),

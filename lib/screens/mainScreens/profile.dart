@@ -3,12 +3,25 @@ import 'package:get/get.dart';
 import '../../controllers/user_controller.dart';
 import '../authentications/login_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final UserController userController = Get.find<UserController>();
+
+  @override
+  void initState() {
+    super.initState();
+    print("User in Profile Screen (initState): ${userController.user.value.name}"); // Debugging log
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.find<UserController>();
+    print("User in Profile Screen (build): ${userController.user.value.name}"); // Debugging log
 
     return Scaffold(
       appBar: AppBar(
@@ -54,6 +67,7 @@ class ProfileScreen extends StatelessWidget {
 
               // User Name
               Obx(() {
+                print("User name in Obx: ${userController.user.value.name}"); // Debugging log
                 return Text(
                   userController.user.value.name.isNotEmpty
                       ? userController.user.value.name

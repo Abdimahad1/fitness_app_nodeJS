@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'genderSelection.dart'; // Updated import to reference the correct file
 import 'package:animated_text_kit/animated_text_kit.dart'; // Import for animated text
 import 'package:get/get.dart';
+import '../mainScreens/home.dart'; // Import the HomeScreen
 
 class HelloScreen extends StatelessWidget {
   const HelloScreen({super.key});
@@ -9,6 +10,19 @@ class HelloScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Hello Screen"),
+        leading: IconButton(
+          icon: const CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.blue, // Blue background
+            child: Icon(Icons.arrow_back, color: Colors.white), // White arrow icon
+          ),
+          onPressed: () {
+            Get.back(); // Navigate back to the previous screen (HomeScreen)
+          },
+        ),
+      ),
       body: Stack(
         children: [
           // Background Image with Overlay
